@@ -24,14 +24,9 @@ class strippingLine:
         self.lineName = lineName
         self.dec = dec 
         self.branches = branches 
-
-        if dataSample.isMC:
-            self.lineLocation = "Phys/"+lineName+"/Particles"
-        else:
-            self.lineLocation = "Phys/"+lineName+"/Particles"
-
+        self.lineLocation = "Phys/"+lineName+"/Particles"
+        
          
-
     def select(self):
         """
         Get data and selection
@@ -65,7 +60,7 @@ class strippingLine:
         Make tuple
         """
 
-        from Configurables import FitDecayTrees, DecayTreeTuple, TupleToolDecayTreeFitter, TupleToolDecay, TupleToolTrigger, TupleToolTISTOS, TupleToolPropertime, PropertimeFitter, TupleToolKinematic, TupleToolGeometry, TupleToolEventInfo, TupleToolPrimaries, TupleToolPid, TupleToolTrackInfo, TupleToolRecoStats, TupleToolMCTruth, TupleToolMCBackgroundInfo, LoKi__Hybrid__TupleTool, LoKi__Hybrid__EvtTupleTool
+        from Configurables import FitDecayTrees, DecayTreeTuple, TupleToolDecayTreeFitter, TupleToolDecay, TupleToolTrigger, TupleToolTISTOS, TupleToolPropertime, PropertimeFitter, TupleToolKinematic, TupleToolGeometry, TupleToolEventInfo, TupleToolPrimaries, TupleToolPid, TupleToolTrackInfo, TupleToolRecoStats, TupleToolMCTruth,  LoKi__Hybrid__TupleTool, LoKi__Hybrid__EvtTupleTool
         
 
         tuple = DecayTreeTuple('Tuple'+self.name) # I can put as an argument a name if I use more than a DecayTreeTuple
@@ -83,14 +78,14 @@ class strippingLine:
         tuple.InputPrimaryVertices = '/Event/Charm/Rec/Vertex/Primary'
 
 
-        # # Other event infos
-        # tuple.addTupleTool('LoKi::Hybrid::EvtTupleTool/LoKi_Evt')
-        # tuple.LoKi_Evt.VOID_Variables = {
-        #     #"nSPDHits" :  " CONTAINS('Raw/Spd/Digits')  " ,
-        #     'nTracks' :  " CONTAINS ('Bhadron/Rec/Track/Best') "  ,
-        #     }
+        # Other event infos
+        tuple.addTupleTool('LoKi::Hybrid::EvtTupleTool/LoKi_Evt')
+        tuple.LoKi_Evt.VOID_Variables = {
+            #"nSPDHits" :  " CONTAINS('Raw/Spd/Digits')  " ,
+            'nTracks' :  " CONTAINS ('Charm/Rec/Track/Best') "  ,
+            }
         
-        # Other variables
+        # # Other variables
         # tuple.addTupleTool('LoKi::Hybrid::TupleTool/LoKi_All')
         # tuple.LoKi_All.Variables = {
         #     'BPVIPCHI2' : 'BPVIPCHI2()',
@@ -100,66 +95,53 @@ class strippingLine:
         
         tuple.addBranches(self.branches)
         
-        # tuple.B.addTupleTool("LoKi::Hybrid::TupleTool/LoKi_B")
-        # tuple.B.LoKi_B.Preambulo = [
-        #     "from LoKiCore.math import sqrt",
-        #     "p_E  = CHILD(E,  {})".format(1),
-        #     "p_PX  = CHILD(PX,  {})".format(1),
-        #     "p_PY  = CHILD(PY,  {})".format(1),
-        #     "p_PZ  = CHILD(PZ,  {})".format(1),
-        #     "pbar_E  = CHILD(E,  {})".format(2),
-        #     "pbar_PX  = CHILD(PX,  {})".format(2),
-        #     "pbar_PY  = CHILD(PY,  {})".format(2),
-        #     "pbar_PZ  = CHILD(PZ,  {})".format(2),
-        #     "h1_E  = CHILD(E,  {})".format(3),
-        #     "h1_PX  = CHILD(PX,  {})".format(3),
-        #     "h1_PY  = CHILD(PY,  {})".format(3),
-        #     "h1_PZ  = CHILD(PZ,  {})".format(3),
-        #     "h2_E  = CHILD(E,  {})".format(4),
-        #     "h2_PX  = CHILD(PX,  {})".format(4),
-        #     "h2_PY  = CHILD(PY,  {})".format(4),
-        #     "h2_PZ  = CHILD(PZ,  {})".format(4),
-        #     "ppbar_M = sqrt( (p_E + pbar_E)**2 - (p_PX + pbar_PX)**2 - (p_PY + pbar_PY)**2 - (p_PZ + pbar_PZ)**2 )",
-        #     "h1h2_M = sqrt( (h1_E + h2_E)**2 - (h1_PX + h2_PX)**2 - (h1_PY + h2_PY)**2 - (h1_PZ + h2_PZ)**2 )",
-        #     "ph1h2_M = sqrt( (p_E + h1_E + h2_E)**2 - (p_PX + h1_PX + h2_PX)**2 - (p_PY + h1_PY + h2_PY)**2 - (p_PZ + h1_PZ + h2_PZ)**2 )",
-        #     "pbarh1h2_M = sqrt( (pbar_E + h1_E + h2_E)**2 - (pbar_PX + h1_PX + h2_PX)**2 - (pbar_PY + h1_PY + h2_PY)**2 - (pbar_PZ + h1_PZ + h2_PZ)**2 )",
-        #     "ppbarh1_M = sqrt( (p_E + pbar_E + h1_E)**2 - (p_PX + pbar_PX + h1_PX)**2 - (p_PY + pbar_PY + h1_PY)**2 - (p_PZ + pbar_PZ + h1_PZ)**2 )",
-        #     "ppbarh2_M = sqrt( (p_E + pbar_E + h2_E)**2 - (p_PX + pbar_PX + h2_PX)**2 - (p_PY + pbar_PY + h2_PY)**2 - (p_PZ + pbar_PZ + h2_PZ)**2 )",
-        #     ]
-        # tuple.B.LoKi_B.Variables =  {
-        #     'DOCAMAX' : 'DOCAMAX',
-        #     'ppbar_M' : 'ppbar_M',
-        #     'h1h2_M' : 'h1h2_M',
-        #     'ph1h2_M' : 'ph1h2_M',
-        #     'pbarh1h2_M' : 'pbarh1h2_M',
-        #     'ppbarh1_M' : 'ppbarh1_M',
-        #     'ppbarh2_M' : 'ppbarh2_M',
-        #     # 'DOCAMIN' : 'DOCAMIN', doesn't work, maybe it's a different functor
-        #     # 'MpPi' : "WM('p+', 'pi-')",
-        #     # 'MpK' : "WM('p+', 'K-')",
-        #     }
+        tuple.phi.addTupleTool("LoKi::Hybrid::TupleTool/LoKi_phi")
+        tuple.phi.LoKi_phi.Variables =  {
+            'DOCAMAX' : 'DOCAMAX',
+            "MassDiff_Phi" : "DMASS('phi(1020)')",
+            "BPVDIRA" : "BPVDIRA",
+            "IPS_Phi" : "MIPCHI2DV(PRIMARY)",
+            "VFASPF_CHI2DOF" : "VFASPF(VCHI2/VDOF)",
+            "VFASPF_CHI2" : "VFASPF(VCHI2)",
+            "BPVIPCHI2" : "BPVIPCHI2()",
+            "ADOCA" : "DOCA(1,2)",
+            "ADOCACHI2" : "DOCACHI2(1,2)",
+
+            "DTF_CHI2_PV"   : "DTF_CHI2( True, 'phi(1020)' )",
+            "DTF_NDOF_PV"   : "DTF_NDOF( True, 'phi(1020)' )",
+            "DTF_M_PV"      : "DTF_FUN ( M, True, 'phi(1020)' )",
+            "DTF_M_Ks1_PV"    : "DTF_FUN ( CHILD(M,1), True, 'phi(1020)' )",
+            "DTF_M_Ks2_PV"    : "DTF_FUN ( CHILD(M,2), True, 'phi(1020)' )",
+            }
         
 
-        # def mySharedConf_p(branch):
-        #     atool=branch.addTupleTool('LoKi::Hybrid::TupleTool/LoKi_p')
-        #     atool.Variables =  {
-        #         'TRCHI2DOF' : 'TRCHI2DOF',
-        #         'TRGHOSTPROB' : 'TRGHOSTPROB',
-        #         }
+        def mySharedConf_Ks(branch):
+            atool=branch.addTupleTool('LoKi::Hybrid::TupleTool/LoKi_Ks')
+            atool.Variables =  {
+                "BPVDIRA" : "BPVDIRA",
+                "VFASPF_CHI2DOF" : "VFASPF(VCHI2/VDOF)",
+                "VFASPF_CHI2" : "VFASPF(VCHI2)",
+                "BPVIPCHI2" : "BPVIPCHI2()",
+                "BPVVD" : "BPVVD",
+                "BPVVDCHI2" : "BPVVDCHI2",
+                "ADOCA" : "DOCA(1,2)",
+                "ADOCACHI2" : "DOCACHI2(1,2)",
+                }
 
-        # mySharedConf_p(tuple.p)
-        # mySharedConf_p(tuple.pbar)
+        mySharedConf_Ks(tuple.Ks1)
+        mySharedConf_Ks(tuple.Ks2)
 
-        # def mySharedConf_h(branch):
-        #     atool=branch.addTupleTool('LoKi::Hybrid::TupleTool/LoKi_h')
-        #     atool.Variables =  {
-        #         'TRCHI2DOF' : 'TRCHI2DOF',
-        #         'TRGHOSTPROB' : 'TRGHOSTPROB',
-        #         }
+        def mySharedConf_pi(branch):
+            atool=branch.addTupleTool('LoKi::Hybrid::TupleTool/LoKi_pi')
+            atool.Variables =  {
+                'TRCHI2DOF' : 'TRCHI2DOF',
+                'TRGHOSTPROB' : 'TRGHOSTPROB',
+                }
 
-        # mySharedConf_h(tuple.h1)
-        # mySharedConf_h(tuple.h2)     
-        
+        mySharedConf_pi(tuple.pi1)
+        mySharedConf_pi(tuple.pi2)     
+        mySharedConf_pi(tuple.pi3)
+        mySharedConf_pi(tuple.pi4) 
         
         
         # # Triggers:
@@ -167,20 +149,21 @@ class strippingLine:
         # HLT1_list = ['Hlt1TrackAllL0Decision']
         # HLT2_list = ['Hlt2Topo{0}Body{1}Decision'.format(i,j) for i in (2,3,4) for j in ('BBDT', 'Simple')]
         
-        # tuple.B.addTupleTool('TupleToolTISTOS/TISTOS')
-        # tuple.B.TISTOS.TriggerList = L0_list + HLT1_list + HLT2_list
-        # tuple.B.TISTOS.VerboseL0   = True
-        # tuple.B.TISTOS.VerboseHlt1 = True
-        # tuple.B.TISTOS.VerboseHlt2 = True
+        # tuple.phi.addTupleTool('TupleToolTISTOS/TISTOS')
+        # tuple.phi.TISTOS.TriggerList = L0_list + HLT1_list + HLT2_list
+        # tuple.phi.TISTOS.VerboseL0   = True
+        # tuple.phi.TISTOS.VerboseHlt1 = True
+        # tuple.phi.TISTOS.VerboseHlt2 = True
                 
-        # if dataSample.isMC:
-        #     from Configurables import MCDecayTreeTuple, MCTupleToolKinematic, TupleToolMCTruth
-        #     tuple.addTupleTool('TupleToolMCTruth/MCTruth')
-        #     tuple.MCTruth.ToolList = ['MCTupleToolKinematic',
-        #                               'MCTupleToolHierarchy',
-        #                               'MCTupleToolReconstructed',
-        #                               ]
-        #     tuple.B.addTupleTool( "TupleToolMCBackgroundInfo")
+        if dataSample.isMC:
+            from Configurables import MCDecayTreeTuple, MCTupleToolKinematic, TupleToolMCTruth, MCTupleToolHierarchy, MCTupleToolReconstructed, MCTupleToolAngles, TupleToolMCBackgroundInfo
+            tuple.addTupleTool('TupleToolMCTruth/MCTruth')
+            tuple.MCTruth.ToolList = ['MCTupleToolKinematic',
+                                      'MCTupleToolHierarchy',
+                                      'MCTupleToolReconstructed',
+                                      'MCTupleToolAngles',
+                                      ]
+            tuple.phi.addTupleTool( "TupleToolMCBackgroundInfo")
 
         
         self.sequence.sequence().Members += [tuple]
@@ -192,10 +175,14 @@ class strippingLine:
 ## Configure DaVinci
 from Configurables import DaVinci
 
-DaVinci.RootInTES = '/Event/Charm'
+if not dataSample.isMC:
+    DaVinci.RootInTES = '/Event/Charm'
+    DaVinci().InputType= 'MDST'
+else:
+    DaVinci().InputType= 'DST'
+    
 DaVinci().Simulation = dataSample.isMC
 DaVinci().DataType = dataSample.dataType
-DaVinci().InputType= 'MDST'
 DaVinci().EvtMax = nEvents # 100000
 DaVinci().Lumi = not dataSample.isMC
 
@@ -225,7 +212,7 @@ if dataSample.CondDBtag: DaVinci().CondDBtag = dataSample.CondDBtag
 Phi2KsKs_line = strippingLine(name = 'Phi2KsKs',
                               lineName = 'PhiToKSKS_PhiToKsKsLine',
                               dec = '[phi(1020) -> ^(KS0 -> ^pi+ ^pi-) ^(KS0 -> ^pi+ ^pi-)]CC',
-                              branches = {'Phi' : '[phi(1020) -> (KS0 -> pi+ pi-) (KS0 -> pi+ pi-)]CC',
+                              branches = {'phi' : '[phi(1020) -> (KS0 -> pi+ pi-) (KS0 -> pi+ pi-)]CC',
                                           'Ks1' : '[phi(1020) -> ^(KS0 -> pi+ pi-) (KS0 -> pi+ pi-)]CC',
                                           'Ks2' : '[phi(1020) -> (KS0 -> pi+ pi-) ^(KS0 -> pi+ pi-)]CC',
                                           'pi1' : '[phi(1020) -> (KS0 -> ^pi+ pi-) (KS0 -> pi+ pi-)]CC',
@@ -239,8 +226,6 @@ if dataSample.isMC: # Kill banks with old stripping
     from Configurables import EventNodeKiller
     eventNodeKiller = EventNodeKiller('Stripkiller')
     eventNodeKiller.Nodes = [ '/Event/AllStreams', '/Event/Strip' ]
-    
-
 
     #   Rerun the stripping selection if MC
 
@@ -276,55 +261,19 @@ if dataSample.isMC: # Kill banks with old stripping
 
     DaVinci().appendToMainSequence( [ eventNodeKiller, sc.sequence() ] )
 
-   
-    # MC TUPLE
-    # if 'phi2ppKK' in dataSample.name:
-    #     MC_DecayDescriptor = '[B_s0 -> ^p+ ^p~- ^K+ ^K-]CC'
-    #     MC_branches = {'B' : '[B_s0 -> p+ p~- K+ K-]CC',
-    #                    'p' : '[B_s0 -> ^p+ p~- K+ K-]CC',
-    #                    'pbar' : '[B_s0 -> p+ ^p~- K+ K-]CC',
-    #                    'h1' : '[B_s0 -> p+ p~- ^K+ K-]CC',
-    #                    'h2' : '[B_s0 -> p+ p~- K+ ^K-]CC',
-    #                    }
-    
-        
+         
     mcTuple = MCDecayTreeTuple() # I can put as an argument a name if I use more than a MCDecayTreeTuple
-    mcTuple.Decay = MC_DecayDescriptor
+    mcTuple.Decay = '[phi(1020) -> ^(KS0 -> ^pi+ ^pi-) ^(KS0 -> ^pi+ ^pi-)]CC'
     mcTuple.ToolList = ['MCTupleToolKinematic',
                         'TupleToolEventInfo',
                         'MCTupleToolHierarchy',
+                        "TupleToolMCBackgroundInfo",
                       ]
 
-    mcTuple.addTupleTool("LoKi::Hybrid::MCTupleTool/LoKi_All")
-    mcTuple.LoKi_All.Variables =  {
-        'TRUEID' : 'MCID'
-        }
-    
-    # mcTuple.addBranches(MC_branches)
-
-    # mcTuple.Head.addTupleTool("LoKi::Hybrid::MCTupleTool/LoKi_Head")
-    # mcTuple.Head.LoKi_Head.Preambulo = [
-    #     "from LoKiCore.math import sqrt",
-    #     "Phi_E  = MCCHILD(MCE,  {})".format(numbers_phi_X[0]),
-    #     "Phi_PX = MCCHILD(MCPX, {})".format(numbers_phi_X[0]),
-    #     "Phi_PY = MCCHILD(MCPY, {})".format(numbers_phi_X[0]),
-    #     "Phi_PZ = MCCHILD(MCPZ, {})".format(numbers_phi_X[0]),
-    #     "X_P  = MCCHILD(MCP,  {})".format(numbers_phi_X[1]),
-    #     "X_E_asMu  = sqrt(105.6583715**2 + X_P**2)",
-    #     "X_E_asPi  = sqrt(139.57018**2 + X_P**2)",
-    #     "X_PX = MCCHILD(MCPX, {})".format(numbers_phi_X[1]),
-    #     "X_PY = MCCHILD(MCPY, {})".format(numbers_phi_X[1]),
-    #     "X_PZ = MCCHILD(MCPZ, {})".format(numbers_phi_X[1]),
-    #     "PhiMu_M = sqrt( (Phi_E + X_E_asMu)**2 - (Phi_PX + X_PX)**2 - (Phi_PY + X_PY)**2 - (Phi_PZ + X_PZ)**2 )",
-    #     "PhiPi_M = sqrt( (Phi_E + X_E_asPi)**2 - (Phi_PX + X_PX)**2 - (Phi_PY + X_PY)**2 - (Phi_PZ + X_PZ)**2 )",
-    #     ]
-    # mcTuple.Head.LoKi_Head.Variables =  {
-    #     'CHILD_1_ID' : "MCCHILD(MCID,1)",
-    #     'CHILD_2_ID' : "MCCHILD(MCID,2)",
-    #     'PhiMu_M' : 'PhiMu_M',
-    #     'PhiPi_M' : 'PhiPi_M',
+    # mcTuple.addTupleTool("LoKi::Hybrid::MCTupleTool/LoKi_All")
+    # mcTuple.LoKi_All.Variables =  {
+    #     'TRUEID' : 'MCID'
     #     }
-
     DaVinci().UserAlgorithms += [mcTuple]
 ###########################################################
 

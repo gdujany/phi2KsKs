@@ -15,10 +15,12 @@ from jobSetup import *
 
 str_LFNs = open(dataSample.input_file).read()
 
-LF_dir = re.compile(r'LFN:(/lhcb/.*/000[0-9]{1}/).*mdst')
+LF_dir = re.compile(r'LFN:(/lhcb/.*/000[0-9]{1}/).*dst')
 directory=re.search(LF_dir,str_LFNs).group(1)
 
+
 eos_dir = '/lhcb/grid/prod'
+# eos_dir = '/lhcb/grid/user'
 
 print '/eos'+eos_dir+directory
 
