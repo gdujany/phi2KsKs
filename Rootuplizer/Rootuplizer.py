@@ -39,8 +39,10 @@ class strippingLine:
 
         evtPreselectors = []
 
-        if dataSample.isPrescaled:
-            prescaler =  DeterministicPrescaler("Prescaler", AcceptFraction = 0.1)
+        if dataSample.isPrescaled != False:
+            if dataSample.isPrescaled == True:
+                dataSample.isPrescaled = 0.1
+            prescaler =  DeterministicPrescaler("Prescaler", AcceptFraction = dataSample.isPrescaled)
             evtPreselectors.append(prescaler)
 
 
@@ -241,7 +243,7 @@ if dataSample.isMC: # Kill banks with old stripping
     archive = strippingArchive(stripping)
     streams = buildStreams(stripping=config, archive=archive)
     
-    # Select my line
+    # Select my line   
     MyStream = StrippingStream("MyStream")
     MyLines = [ 'Stripping'+line.lineName for line in [Phi2KsKs_line] ]
     
@@ -270,10 +272,13 @@ if dataSample.isMC: # Kill banks with old stripping
                         "TupleToolMCBackgroundInfo",
                       ]
 
-    # mcTuple.addTupleTool("LoKi::Hybrid::MCTupleTool/LoKi_All")
-    # mcTuple.LoKi_All.Variables =  {
-    #     'TRUEID' : 'MCID'
-    #     }
+    from Configurables import PrintMCTree, PrintMCDecayTreeTool
+    mctree = PrintMCTree("PrintTruePhi")
+    mctree.addTool(PrintMCDecayTreeTool, name = "PrintMC")
+    mctree.PrintMC.Information = "Name"
+    mctree.ParticleNames = [ "phi(1020)" ]
+    mctree.Depth = 2
+   
     DaVinci().UserAlgorithms += [mcTuple]
 ###########################################################
 

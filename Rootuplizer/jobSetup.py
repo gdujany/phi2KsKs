@@ -40,7 +40,7 @@ class VariousOptionsMC(VariousOptions):
         VariousOptions.__init__(self, input_file=input_file, isMC=True, isPrescaled=False, **argd)
         self.decNumber = decNumbers.get(self.name[:-3], 0)
         if not self.input_file:
-            self.input_file = 'MC_{dataType}_{decNumber}_Beam4000GeV{dataType}{MagStr}Nu2.5Pythia8_{SimVer}_Digi13_Trig0x409f0045_Reco14a_Stripping20NoPrescalingFlagged_ALLSTREAMS.DST.py'.format(MagStr=MagString[self.MagnetPolarity],SimVer=simVersion[self.name[:-3]],**self.__dict__)
+            self.input_file = 'inputFiles/MC/MC_{dataType}_{decNumber}_Beam4000GeV{dataType}{MagStr}Nu2.5Pythia8_{SimVer}_Digi13_Trig0x409f0045_Reco14a_Stripping20NoPrescalingFlagged_ALLSTREAMS.DST.py'.format(MagStr=MagString[self.MagnetPolarity],SimVer=simVersion[self.name[:-3]],**self.__dict__)
 
            
 ############################################################
@@ -60,37 +60,47 @@ for mc_type in MC_list:
 
 for MagnetPolarity in ('mu', 'md'):
     dataSamples['data2012_'+MagnetPolarity] = VariousOptions(
-        name = 'data2012_'+MagnetPolarity, MagnetPolarity = MagnetPolarity, isMC=False,
+        name = 'data2012_'+MagnetPolarity, MagnetPolarity = MagnetPolarity, isMC=False, isPrescaled=True,
         input_file = 'inputFiles/data/LHCb_Collision12_Beam4000GeVVeloClosedMagDown_Real Data_Reco14_Stripping21_90000000_CHARM.MDST.py'.format(MagString[MagnetPolarity]),
         input_path = '/LHCb/Collision12/Beam4000GeV-VeloClosed-{}/Real Data/Reco14/Stripping21/90000000/CHARM.MDST'.format(MagString[MagnetPolarity]),
         )
 
     
-dataSamples['privateMC'] = VariousOptionsMC(
-        name = 'privateMC', MagnetPolarity = 'mu',
+dataSamples['phi2KsKs_incl'] = VariousOptionsMC(
+        name = 'phi2KsKs_incl', MagnetPolarity = 'mu',
         CondDBtag="sim-20130222-1-vc-md100", DDDBtag="dddb-20130312-1",
-        input_file = 'inputFiles/MC/jonCern.py',
+        input_file = 'inputFiles/MC/brunel_LFNs_inclusive.py',
+        )
+
+dataSamples['phi2KsKs_Ds'] = VariousOptionsMC(
+        name = 'phi2KsKs_Ds', MagnetPolarity = 'mu',
+        CondDBtag="sim-20130222-1-vc-md100", DDDBtag="dddb-20130312-1",
+        input_file = 'inputFiles/MC/brunel_LFNs_Ds.py',
         )
 
 
 
 # list of datasamples to be analized
 toAnalize = []
+toAnalize += [dataSamples['phi2KsKs_incl'], dataSamples['phi2KsKs_Ds']]
 toAnalize += [dataSample for key, dataSample in dataSamples.items() if key[:-3] in MC_list]
 toAnalize += [dataSamples['data2012_mu'], dataSamples['data2012_md']]#, dataSamples['data2011_mu'], dataSamples['data2011_md']]
+
 # toAnalize = toAnalize[:]
 
 # For test
 
 # dataSample = dataSamples['data2012_mu']
 # dataSample = dataSamples['privateMC']
+dataSample = dataSamples['minbias_md']
+# dataSample = dataSamples['phi2KsKs_incl']
 
 
 # General options
 isGrid = True
 isStoreInEOS = True
 getDataSet = False# True 
-nEvents = 300 #-1
+nEvents = -1
 
 #toAnalize = dataSamples.values()
 
@@ -122,7 +132,7 @@ if __name__ == '__main__':
                 raise IOError('input_path not defined')
         else:
             str_LFNs = open(dataSample.input_file).read()
-            fileList = re.findall(r'/lhcb/.*/000[0-9]{1}/.*dst', str_LFNs)
+            fileList = re.findall(r'/lhcb/.*?/.*?/.*dst', str_LFNs)
             # fileList = fileList[:200]
             
 
@@ -146,7 +156,7 @@ if __name__ == '__main__':
             else:
                 j.inputdata = LHCbDataset(['LFN:'+fl for fl in fileList])
             if isStoreInEOS:
-                j.outputfiles += [MassStorageFile(dataSample.outputNtupleName)] #Like this it will ends up in my eos area $EOSHOME/ganga/<job#>/<subjob#>/
+                j.outputfiles += [MassStorageFile(dataSample.outputNtupleName)] # Like this it will ends up in my eos area $EOSHOME/ganga/<job#>/<subjob#>/
             else:
                 j.outputfiles += [LocalFile(dataSample.outputNtupleName)]
                 # rm = RootMerger()
@@ -158,7 +168,7 @@ if __name__ == '__main__':
 
         else:
             j.backend = Local()#Interactive()
-            j.outputfiles += [LocalFile(dataSample.outputNtupleName)] #Like this it will ends up in my working-dir
+            j.outputfiles += [LocalFile(dataSample.outputNtupleName)] # Like this it will ends up in my working-dir
             if getDataSet:
                 print 'Getting dataSet '+bk.path
                 ds = bk.getDataset()
@@ -171,7 +181,7 @@ if __name__ == '__main__':
         call(['rm','dataSample.txt'])
 
 
-    for dataSample in toAnalize[:]:
+    for dataSample in toAnalize[-2:]:
         submitJob(dataSample)
 
     # submitJob(dataSamples['data2012_md'])
