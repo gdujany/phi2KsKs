@@ -37,7 +37,9 @@ for key, inFile in inFiles.items():
 
 cut = 'phi_PT<5100 && pi1_PT>200 && pi2_PT> 200 && pi3_PT>200 && pi4_PT>200 &&(sqrt(Ks1_ENDVERTEX_X*Ks1_ENDVERTEX_X + Ks1_ENDVERTEX_Y*Ks1_ENDVERTEX_Y) < 7 ||sqrt(Ks2_ENDVERTEX_X*Ks2_ENDVERTEX_X + Ks2_ENDVERTEX_Y*Ks2_ENDVERTEX_Y) < 7 )'
 
+cut = 'phi_M > 1010 && phi_M < 1030'
 
+cut = ''
 
 ct = CompareTreeVars(normalise=True)
 ct.addTree('data2012', trees['data2012'], evtMax=50000, tree_cut = cut)
@@ -74,7 +76,7 @@ ct.addVariable('pi3_CosTheta', region = [-1, 1])
 ct.addVariable('pi3_PT', region = [0, 6000])
 ct.addVariable('pi3_P', region = [0, 100e3])
 ct.addVariable('pi4_CosTheta', region = [-1, 1])
-ct.addVariable('pi4_PT', region = [0, 6000])
+ct.addVariable('pi4_PT', region = [0, 1020], opts='e0')
 ct.addVariable('pi4_P', region = [0, 100e3])
 
 # Output names

@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+"""
+to run:
+SetupBender
+./findTriggers.py
+"""
 
 import os
 
@@ -16,7 +21,7 @@ directory = eos_root+'/lhcb/LHCb/Collision12/CHARM.MDST/00041836/0000/' #Data md
 #directory = eos_root+'/lhcb/LHCb/Collision12/CHARM.MDST/00041834/0000/' #Data mu
 
 line = "/Event/Charm/Phys/"+lineName+"/Particles"
-files = [directory+name for name in os.listdir(directory) if '.mdst' in name]
+files = [directory+name for name in os.listdir(directory) if 'dst' in name]
 
-#os.system('python CheckTrg.py -n 100000 '+line+' '+' '.join([file for file in files]))
+os.system('python CheckTrg.py -n 100000 '+line+' '+' '.join([file for file in files]))
 
