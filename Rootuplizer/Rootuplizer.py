@@ -15,6 +15,12 @@ from DecayTreeTuple.Configuration import *
 import GaudiKernel.SystemOfUnits as Units
 from Configurables import DeterministicPrescaler
 
+# Triggers
+L0_list = ['L0HadronDecision', 'L0MuonDecision', 'L0ElectronDecision']
+HLT1_list = ['Hlt1TrackAllL0Decision', 'Hlt1TrackPhotonDecision', 'Hlt1TrackMuonDecision']
+HLT2_list = ['Hlt2ExpressKSDecision', 'Hlt2CharmHadD02HHXDst_BaryonhhXWideMassDecision']
+trigger_list = L0_list + HLT1_list + HLT2_list
+
 class strippingLine:
     """
     Class to store information about stripping line that I will need to make nTuple
@@ -51,12 +57,29 @@ class strippingLine:
         evtPreselectors.append(strippingFilter)
 
 
-        Candidate_selection = AutomaticData(Location = self.lineLocation)
-
+        stripped_data = AutomaticData(Location = self.lineLocation)
+        
+        # Trigger selection
+        from Configurables import TisTosParticleTagger
+        _tisTosFilter = TisTosParticleTagger( self.name + "Triggered" )
+        _tisTosFilter.TisTosSpecs = { 'L0Global%TUS' : 0,
+                                      'L0Global%TIS' : 0,
+                                      }
+        for trigger in trigger_list:
+            for tistos in ['TIS', 'TUS']:
+                _tisTosFilter.TisTosSpecs['{0}%{1}'.format(trigger, tistos)] = 0
+        
+        triggered_data =  Selection( self.name+'TriggerSelection',
+                                     Algorithm = _tisTosFilter,
+                                     RequiredSelections = [ stripped_data ],
+                                     )
+        
+        Candidate_selection = triggered_data #stripped_data
+        
         self.sequence = SelectionSequence('Seq'+self.name,
-                                 TopSelection = Candidate_selection,
-                                 EventPreSelector = evtPreselectors)
-
+                                          TopSelection = Candidate_selection,
+                                          EventPreSelector = evtPreselectors)
+        
     def makeTuple(self):
         """
         Make tuple
@@ -77,6 +100,7 @@ class strippingLine:
                           # 'TupleToolPropertime', #proper time TAU of reco particles
                           ]
 
+        
         tuple.InputPrimaryVertices = '/Event/Charm/Rec/Vertex/Primary'
 
 
@@ -114,6 +138,11 @@ class strippingLine:
             "DTF_M_PV"      : "DTF_FUN ( M, True, 'phi(1020)' )",
             "DTF_M_Ks1_PV"    : "DTF_FUN ( CHILD(M,1), True, 'phi(1020)' )",
             "DTF_M_Ks2_PV"    : "DTF_FUN ( CHILD(M,2), True, 'phi(1020)' )",
+           
+            # "DTF_CTAU_Ks1"    : "DTF_CTAU(1, False, 'phi(1020)' )",
+            # "DTF_CTAU_Ks2"    : "DTF_CTAU(2, False, 'phi(1020)' )",
+            
+           
             }
         
 
@@ -128,7 +157,10 @@ class strippingLine:
                 "BPVVDCHI2" : "BPVVDCHI2",
                 "ADOCA" : "DOCA(1,2)",
                 "ADOCACHI2" : "DOCACHI2(1,2)",
+                'BPVLTIME' : 'BPVLTIME()',
                 }
+            PropertimeTool = branch.addTupleTool("TupleToolPropertime/Propertime_Ks")
+            
 
         mySharedConf_Ks(tuple.Ks1)
         mySharedConf_Ks(tuple.Ks2)
@@ -144,18 +176,15 @@ class strippingLine:
         mySharedConf_pi(tuple.pi2)     
         mySharedConf_pi(tuple.pi3)
         mySharedConf_pi(tuple.pi4) 
+
         
+        # Triggers:   
+        tuple.phi.addTupleTool('TupleToolTISTOS/TISTOS')
+        tuple.phi.TISTOS.TriggerList = trigger_list
+        tuple.phi.TISTOS.VerboseL0   = True
+        tuple.phi.TISTOS.VerboseHlt1 = True
+        tuple.phi.TISTOS.VerboseHlt2 = True
         
-        # # Triggers:
-        # L0_list = ['L0HadronDecision']
-        # HLT1_list = ['Hlt1TrackAllL0Decision']
-        # HLT2_list = ['Hlt2Topo{0}Body{1}Decision'.format(i,j) for i in (2,3,4) for j in ('BBDT', 'Simple')]
-        
-        # tuple.phi.addTupleTool('TupleToolTISTOS/TISTOS')
-        # tuple.phi.TISTOS.TriggerList = L0_list + HLT1_list + HLT2_list
-        # tuple.phi.TISTOS.VerboseL0   = True
-        # tuple.phi.TISTOS.VerboseHlt1 = True
-        # tuple.phi.TISTOS.VerboseHlt2 = True
                 
         if dataSample.isMC:
             from Configurables import MCDecayTreeTuple, MCTupleToolKinematic, TupleToolMCTruth, MCTupleToolHierarchy, MCTupleToolReconstructed, MCTupleToolAngles, TupleToolMCBackgroundInfo
@@ -171,6 +200,22 @@ class strippingLine:
         self.sequence.sequence().Members += [tuple]
 
         # tuple.OutputLevel = DEBUG
+
+############################################################
+def addMCTuple(name, decayDescriptor):
+    '''
+    Given name and decay descriptor, add MCTuple to the main DaVinci Sequence
+    '''
+     # MC    
+    mcTuple = MCDecayTreeTuple('MCTuple'+name) # I can put as an argument a name if I use more than a MCDecayTreeTuple
+    mcTuple.Decay = decayDescriptor #'[phi(1020) -> ^(KS0 -> ^pi+ ^pi-) ^(KS0 -> ^pi+ ^pi-)]CC'
+    mcTuple.ToolList = ['MCTupleToolKinematic',
+                        'TupleToolEventInfo',
+                        'MCTupleToolHierarchy',
+                        "TupleToolMCBackgroundInfo",
+                      ]
+    DaVinci().UserAlgorithms += [mcTuple]
+    
 
 
 ############################################################
@@ -263,23 +308,22 @@ if dataSample.isMC: # Kill banks with old stripping
 
     DaVinci().appendToMainSequence( [ eventNodeKiller, sc.sequence() ] )
 
-         
-    mcTuple = MCDecayTreeTuple() # I can put as an argument a name if I use more than a MCDecayTreeTuple
-    mcTuple.Decay = '[phi(1020) -> ^(KS0 -> ^pi+ ^pi-) ^(KS0 -> ^pi+ ^pi-)]CC'
-    mcTuple.ToolList = ['MCTupleToolKinematic',
-                        'TupleToolEventInfo',
-                        'MCTupleToolHierarchy',
-                        "TupleToolMCBackgroundInfo",
-                      ]
+    # MC Tuples
+    addMCTuple('phi2KsKs', '[phi(1020) -> ^(KS0 -> ^pi+ ^pi-) ^(KS0 -> ^pi+ ^pi-)]CC')
+    addMCTuple('phi2KsKl', '[phi(1020) -> ^(KS0 -> ^pi+ ^pi-) ^(KL0 -> ^pi+ ^pi-)]CC')
+    if 'minbias' in dataSample.name:
+        addMCTuple('phi2KK', '[phi(1020) -> ^K- ^K-]CC')
+        # addMCTuple('KsKs', '[(KS0 -> ^pi+ ^pi-)cc && (KS0 -> ^pi+ ^pi-)cc]')
+        addMCTuple('Ks', '[KS0 -> ^pi+ ^pi-]CC')
 
     from Configurables import PrintMCTree, PrintMCDecayTreeTool
     mctree = PrintMCTree("PrintTruePhi")
     mctree.addTool(PrintMCDecayTreeTool, name = "PrintMC")
     mctree.PrintMC.Information = "Name"
-    mctree.ParticleNames = [ "phi(1020)" ]
+    mctree.ParticleNames = [ "phi(1020)", 'KS0' ]
     mctree.Depth = 2
    
-    DaVinci().UserAlgorithms += [mcTuple]
+    
 ###########################################################
 
 for strLine in [Phi2KsKs_line]:

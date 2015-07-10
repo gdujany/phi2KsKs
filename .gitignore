@@ -10,6 +10,8 @@
 # root files
 *.root
 *.xgen
+*.dst
+*.mdst
 
 # logfiles
 *.log
