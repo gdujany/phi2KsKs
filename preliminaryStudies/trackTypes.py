@@ -1,13 +1,6 @@
 #!/usr/bin/env python
 '''
-Example on how to plot different variables from different trees to make comparisons
-
-to use
-
-git clone ssh://git@gitlab.cern.ch:7999/gdujany/pyUtils.git
-
-then add to you .bashrc the line
-export PYTHONPATH=<folder where downloaded pyUtils>/pyUtils:$PYTHONPATH
+Finding out whether how many Ks decay in the beampipe
 '''
 
 import sys, os
