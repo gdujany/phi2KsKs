@@ -101,16 +101,22 @@ class strippingLine:
                           ]
 
         
-        tuple.InputPrimaryVertices = '/Event/Charm/Rec/Vertex/Primary'
-
 
         # Other event infos
         tuple.addTupleTool('LoKi::Hybrid::EvtTupleTool/LoKi_Evt')
-        tuple.LoKi_Evt.VOID_Variables = {
-            #"nSPDHits" :  " CONTAINS('Raw/Spd/Digits')  " ,
-            'nTracks' :  " CONTAINS ('Charm/Rec/Track/Best') "  ,
-            }
-        
+        if dataSample.isMC:
+            tuple.LoKi_Evt.VOID_Variables = {
+                # "nSPDHits" :  " CONTAINS('Raw/Spd/Digits')  " ,
+                "nTracks" : "TrSOURCE('Rec/Track/Best') >> TrSIZE"
+                ,"nPVs"   : "CONTAINS('Rec/Vertex/Primary')"
+                }
+        else:
+            tuple.LoKi_Evt.VOID_Variables = {
+                # "nSPDHits" :  " CONTAINS('Raw/Spd/Digits')  " ,
+                "nTracks"  : "CONTAINS('/Event/Charm/Rec/Track/Best')"
+                ,"nPVs"    : "CONTAINS('/Event/Charm/Rec/Vertex/Primary')"
+                }
+            
         # # Other variables
         # tuple.addTupleTool('LoKi::Hybrid::TupleTool/LoKi_All')
         # tuple.LoKi_All.Variables = {
