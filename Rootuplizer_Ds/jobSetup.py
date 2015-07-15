@@ -84,7 +84,7 @@ for MagnetPolarity in ('mu', 'md'):
     dataSamples['minbias2_'+MagnetPolarity] = VariousOptionsMC(
         name = 'minbias2_'+MagnetPolarity, MagnetPolarity = MagnetPolarity,
         DDDBtag='dddb-20120831',CondDBtag='sim-20121025-vc-{0}100'.format(MagnetPolarity),
-        input_file = 'inputFiles/MC/MC_2012_30000000_Beam4000GeV2012{0}Nu2.5Pythia8_Sim08c_Digi13_Trig0x409f0045_Reco14a_Stripping20NoPrescalingFlagged_ALLSTREAMS.DST.py'.format(MagString[MagnetPolarity]),
+        input_file = 'MC_2012_30000000_Beam4000GeV2012{0}Nu2.5Pythia8_Sim08c_Digi13_Trig0x409f0045_Reco14a_Stripping20NoPrescalingFlagged_ALLSTREAMS.DST'.format(MagString[MagnetPolarity]),
         )
 
 
@@ -92,19 +92,16 @@ for MagnetPolarity in ('mu', 'md'):
     dataSamples['minbias3_'+MagnetPolarity] = VariousOptionsMC(
         name = 'minbias3_'+MagnetPolarity, MagnetPolarity = MagnetPolarity,
         DDDBtag='dddb-20130929-1',CondDBtag='sim-20130522-1-vc-{0}10'.format(MagnetPolarity),
-        input_file = 'inputFiles/MC/MC_2012_30000030_Beam4000GeVMayJune2012{0}Nu2.5EmNoCuts_Sim06b_Trig0x4097003dFlagged_Reco14_Stripping20NoPrescalingFlagged_ALLSTREAMS.DST.py'.format(MagString[MagnetPolarity]),
+        input_file = 'inputFiles/MC/MC_2012_30000030_Beam4000GeVMayJune2012{0}Nu2.5EmNoCuts_Sim06b_Trig0x4097003dFlagged_Reco14_Stripping20NoPrescalingFlagged_ALLSTREAMS.DST'.format(MagString[MagnetPolarity]),
         )
 
 
 
 # list of datasamples to be analized
-# toAnalize = []
-# toAnalize += [dataSamples['phi2KsKs_incl'], dataSamples['phi2KsKs_Ds']]
-# toAnalize += [i for i in dataSamples.values() if 'minbias' in i.name]
-# #toAnalize += [dataSample for key, dataSample in dataSamples.items() if key[:-3] in MC_list]
-# toAnalize += [dataSamples['data2012_mu'], dataSamples['data2012_md']]#, dataSamples['data2011_mu'], dataSamples['data2011_md']]
-
-toAnalize = [dataSamples['minbias2_mu'], dataSamples['minbias2_md'], dataSamples['minbias3_mu'], dataSamples['minbias3_md']]
+toAnalize = []
+toAnalize += [dataSamples['phi2KsKs_incl'], dataSamples['phi2KsKs_Ds']]
+toAnalize += [dataSample for key, dataSample in dataSamples.items() if key[:-3] in MC_list]
+toAnalize += [dataSamples['data2012_mu'], dataSamples['data2012_md']]#, dataSamples['data2011_mu'], dataSamples['data2011_md']]
 
 # toAnalize = toAnalize[:]
 
@@ -164,7 +161,7 @@ if __name__ == '__main__':
         #j.inputdata = DaVinci().readInputData(dataSample.input_file)
         #j.application.optsfile += [File(dataSample.input_file)]
         #j.inputdata = j.application.readInputData(dataSample.input_file)
-        j.inputfiles += ['dataSample.txt']
+        j.inputsandbox += ['dataSample.txt']
         j.name = dataSample.name
         j.comment = dataSample.name
         if isGrid:
@@ -204,7 +201,7 @@ if __name__ == '__main__':
         call(['rm','dataSample.txt'])
 
 
-    for dataSample in toAnalize[:]:
+    for dataSample in toAnalize[-2:]:
         submitJob(dataSample)
 
     # submitJob(dataSamples['data2012_md'])
