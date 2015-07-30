@@ -11,8 +11,11 @@ import sys, os, re
 sys.path.append(os.getcwd())
 from jobSetup import *
 
+MagString = dict(mu = 'MagUp', md = 'MagDown')
+MagnetPolarity = 'mu'
+input_file = 'inputFiles/data/LHCb_Collision12_Beam4000GeVVeloClosed{0}_Real Data_Reco14_Stripping21_90000000_CHARM.MDST.py'.format(MagString[MagnetPolarity])
 
-str_LFNs = open(dataSample.input_file).read()
+str_LFNs = open(input_file).read()
 
 LF_dir = re.compile(r'LFN:(/lhcb/.*/000[0-9]{1}/).*dst')
 directory=re.search(LF_dir,str_LFNs).group(1)

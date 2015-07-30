@@ -19,7 +19,7 @@ if not os.listdir(eos_root):
 store_dir = os.path.join(eos_root, 'lhcb/user/g/gdujany/phi2KsKs/old/')
 
 inFiles = {}
-inFiles['phi2KsKs_incl'] = r.TFile(os.path.join(store_dir, 'Phi2KsKs_MC_GenCut_inclusive_stripped.root'))
+inFiles['phi2KsKs_incl'] = r.TFile(os.path.join(store_dir, 'phi2KsKs_incl.root'))
 
 
 trees = {}
@@ -27,6 +27,9 @@ for key, inFile in inFiles.items():
     trees[key] = inFile.Get('DecayTreeTuple/Phi2KsKs')
 
 allEntries = trees['phi2KsKs_incl'].GetEntries()
+
+names = [b.GetName() for b in trees['phi2KsKs_incl'].GetListOfBranches()]
+print(names)
 
 L0_trigger = []
 Hlt1_trigger = []
