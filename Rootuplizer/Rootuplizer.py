@@ -60,21 +60,21 @@ class strippingLine:
         stripped_data = AutomaticData(Location = self.lineLocation)
         
         # Trigger selection
-        from Configurables import TisTosParticleTagger
-        _tisTosFilter = TisTosParticleTagger( self.name + "Triggered" )
-        _tisTosFilter.TisTosSpecs = { 'L0Global%TUS' : 0,
-                                      'L0Global%TIS' : 0,
-                                      }
-        for trigger in trigger_list:
-            for tistos in ['TIS', 'TUS']:
-                _tisTosFilter.TisTosSpecs['{0}%{1}'.format(trigger, tistos)] = 0
+        # from Configurables import TisTosParticleTagger
+        # _tisTosFilter = TisTosParticleTagger( self.name + "Triggered" )
+        # _tisTosFilter.TisTosSpecs = { 'L0Global%TUS' : 0,
+        #                               'L0Global%TIS' : 0,
+        #                               }
+        # for trigger in trigger_list:
+        #     for tistos in ['TIS', 'TUS']:
+        #         _tisTosFilter.TisTosSpecs['{0}%{1}'.format(trigger, tistos)] = 0
         
-        triggered_data =  Selection( self.name+'TriggerSelection',
-                                     Algorithm = _tisTosFilter,
-                                     RequiredSelections = [ stripped_data ],
-                                     )
+        # triggered_data =  Selection( self.name+'TriggerSelection',
+        #                              Algorithm = _tisTosFilter,
+        #                              RequiredSelections = [ stripped_data ],
+        #                              )
         
-        Candidate_selection = triggered_data #stripped_data
+        Candidate_selection = stripped_data # triggered_data
         
         self.sequence = SelectionSequence('Seq'+self.name,
                                           TopSelection = Candidate_selection,
@@ -101,16 +101,22 @@ class strippingLine:
                           ]
 
         
-        tuple.InputPrimaryVertices = '/Event/Charm/Rec/Vertex/Primary'
-
 
         # Other event infos
         tuple.addTupleTool('LoKi::Hybrid::EvtTupleTool/LoKi_Evt')
-        tuple.LoKi_Evt.VOID_Variables = {
-            #"nSPDHits" :  " CONTAINS('Raw/Spd/Digits')  " ,
-            'nTracks' :  " CONTAINS ('Charm/Rec/Track/Best') "  ,
-            }
-        
+        if dataSample.isMC:
+            tuple.LoKi_Evt.VOID_Variables = {
+                # "nSPDHits" :  " CONTAINS('Raw/Spd/Digits')  " ,
+                "nTracks" : "TrSOURCE('Rec/Track/Best') >> TrSIZE"
+                ,"nPVs"   : "CONTAINS('Rec/Vertex/Primary')"
+                }
+        else:
+            tuple.LoKi_Evt.VOID_Variables = {
+                # "nSPDHits" :  " CONTAINS('Raw/Spd/Digits')  " ,
+                "nTracks"  : "CONTAINS('/Event/Charm/Rec/Track/Best')"
+                ,"nPVs"    : "CONTAINS('/Event/Charm/Rec/Vertex/Primary')"
+                }
+            
         # # Other variables
         # tuple.addTupleTool('LoKi::Hybrid::TupleTool/LoKi_All')
         # tuple.LoKi_All.Variables = {
@@ -311,10 +317,11 @@ if dataSample.isMC: # Kill banks with old stripping
     # MC Tuples
     addMCTuple('phi2KsKs', '[phi(1020) -> ^(KS0 -> ^pi+ ^pi-) ^(KS0 -> ^pi+ ^pi-)]CC')
     addMCTuple('phi2KsKl', '[phi(1020) -> ^(KS0 -> ^pi+ ^pi-) ^(KL0 -> ^pi+ ^pi-)]CC')
-    if 'minbias' in dataSample.name:
-        addMCTuple('phi2KK', '[phi(1020) -> ^K- ^K-]CC')
-        # addMCTuple('KsKs', '[(KS0 -> ^pi+ ^pi-)cc && (KS0 -> ^pi+ ^pi-)cc]')
-        addMCTuple('Ks', '[KS0 -> ^pi+ ^pi-]CC')
+    # if 'minbias' in dataSample.name:
+    #     addMCTuple('phi2KK', '[phi(1020) -> ^K+ ^K-]CC')
+    #     addMCTuple('phi2K0K0', '[phi(1020) -> ^KS0 ^KL0]CC')
+    #     # addMCTuple('KsKs', '[(KS0 -> ^pi+ ^pi-)cc && (KS0 -> ^pi+ ^pi-)cc]')
+    #     addMCTuple('Ks', '[KS0 -> ^pi+ ^pi-]CC')
 
     from Configurables import PrintMCTree, PrintMCDecayTreeTool
     mctree = PrintMCTree("PrintTruePhi")

@@ -7,13 +7,13 @@
 
 decNumbers = dict(
     inclb = 10000000,
-    minbias = 30000000,
+    minbias1 = 30000000,
     minbias2 = 30000000,
     )
 
 simVersion = dict(
     inclb = 'Sim08a',
-    minbias = 'Sim08a',
+    minbias1 = 'Sim08a',
     minbias2 = 'Sim08c',
     )
 
@@ -51,12 +51,12 @@ dataSamples = {}
 
 MC_list = [
     # 'inclb',
-    'minbias',
+    'minbias1',
     ]
 
 for mc_type in MC_list:
     for MagnetPolarity in ('mu', 'md'):
-        dataSamples[mc_type+'_'+MagnetPolarity] = VariousOptionsMC(name = mc_type+'_'+MagnetPolarity, MagnetPolarity = MagnetPolarity, DDDBtag='Sim08-20130503-1',CondDBtag='Sim08-20130503-1-vc-md100')
+        dataSamples[mc_type+'_'+MagnetPolarity] = VariousOptionsMC(name = mc_type+'_'+MagnetPolarity, MagnetPolarity = MagnetPolarity, DDDBtag='Sim08-20130503-1',CondDBtag='Sim08-20130503-1-vc-{0}100'.format(MagnetPolarity))
 
 
 
@@ -84,7 +84,7 @@ for MagnetPolarity in ('mu', 'md'):
     dataSamples['minbias2_'+MagnetPolarity] = VariousOptionsMC(
         name = 'minbias2_'+MagnetPolarity, MagnetPolarity = MagnetPolarity,
         DDDBtag='dddb-20120831',CondDBtag='sim-20121025-vc-{0}100'.format(MagnetPolarity),
-        input_file = 'MC_2012_30000000_Beam4000GeV2012{0}Nu2.5Pythia8_Sim08c_Digi13_Trig0x409f0045_Reco14a_Stripping20NoPrescalingFlagged_ALLSTREAMS.DST'.format(MagString[MagnetPolarity]),
+        input_file = 'inputFiles/MC/MC_2012_30000000_Beam4000GeV2012{0}Nu2.5Pythia8_Sim08c_Digi13_Trig0x409f0045_Reco14a_Stripping20NoPrescalingFlagged_ALLSTREAMS.DST.py'.format(MagString[MagnetPolarity]),
         )
 
 
@@ -92,16 +92,20 @@ for MagnetPolarity in ('mu', 'md'):
     dataSamples['minbias3_'+MagnetPolarity] = VariousOptionsMC(
         name = 'minbias3_'+MagnetPolarity, MagnetPolarity = MagnetPolarity,
         DDDBtag='dddb-20130929-1',CondDBtag='sim-20130522-1-vc-{0}10'.format(MagnetPolarity),
-        input_file = 'inputFiles/MC/MC_2012_30000030_Beam4000GeVMayJune2012{0}Nu2.5EmNoCuts_Sim06b_Trig0x4097003dFlagged_Reco14_Stripping20NoPrescalingFlagged_ALLSTREAMS.DST'.format(MagString[MagnetPolarity]),
+        input_file = 'inputFiles/MC/MC_2012_30000030_Beam4000GeVMayJune2012{0}Nu2.5EmNoCuts_Sim06b_Trig0x4097003dFlagged_Reco14_Stripping20NoPrescalingFlagged_ALLSTREAMS.DST.py'.format(MagString[MagnetPolarity]),
         )
 
 
 
 # list of datasamples to be analized
 toAnalize = []
-toAnalize += [dataSamples['phi2KsKs_incl'], dataSamples['phi2KsKs_Ds']]
-toAnalize += [dataSample for key, dataSample in dataSamples.items() if key[:-3] in MC_list]
-toAnalize += [dataSamples['data2012_mu'], dataSamples['data2012_md']]#, dataSamples['data2011_mu'], dataSamples['data2011_md']]
+toAnalize += [dataSamples['phi2KsKs_incl']]#, dataSamples['phi2KsKs_Ds']]
+#toAnalize += [i for i in dataSamples.values() if 'minbias' in i.name]
+toAnalize += [dataSamples['minbias1_mu'], dataSamples['minbias1_md'], dataSamples['minbias2_mu'], dataSamples['minbias2_md']]
+# #toAnalize += [dataSample for key, dataSample in dataSamples.items() if key[:-3] in MC_list]
+# toAnalize += [dataSamples['data2012_mu'], dataSamples['data2012_md']]#, dataSamples['data2011_mu'], dataSamples['data2011_md']]
+
+# toAnalize = [dataSamples['minbias2_mu'], dataSamples['minbias2_md'], dataSamples['minbias3_mu'], dataSamples['minbias3_md']]
 
 # toAnalize = toAnalize[:]
 
@@ -110,9 +114,9 @@ toAnalize += [dataSamples['data2012_mu'], dataSamples['data2012_md']]#, dataSamp
 # For test
 
 #dataSample = dataSamples['data2012_mu']
-#dataSample = dataSamples['minbias_md']
+dataSample = dataSamples['minbias1_md']
 #dataSample = dataSamples['phi2KsKs_incl']
-dataSample = dataSamples['phi2KsKs_Ds']
+#dataSample = dataSamples['phi2KsKs_Ds']
 
 
 # General options
@@ -161,7 +165,7 @@ if __name__ == '__main__':
         #j.inputdata = DaVinci().readInputData(dataSample.input_file)
         #j.application.optsfile += [File(dataSample.input_file)]
         #j.inputdata = j.application.readInputData(dataSample.input_file)
-        j.inputsandbox += ['dataSample.txt']
+        j.inputfiles += ['dataSample.txt']
         j.name = dataSample.name
         j.comment = dataSample.name
         if isGrid:
@@ -201,7 +205,7 @@ if __name__ == '__main__':
         call(['rm','dataSample.txt'])
 
 
-    for dataSample in toAnalize[-2:]:
+    for dataSample in toAnalize[:]:
         submitJob(dataSample)
 
     # submitJob(dataSamples['data2012_md'])
