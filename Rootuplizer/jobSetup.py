@@ -7,13 +7,13 @@
 
 decNumbers = dict(
     inclb = 10000000,
-    minbias = 30000000,
+    minbias1 = 30000000,
     minbias2 = 30000000,
     )
 
 simVersion = dict(
     inclb = 'Sim08a',
-    minbias = 'Sim08a',
+    minbias1 = 'Sim08a',
     minbias2 = 'Sim08c',
     )
 
@@ -51,12 +51,12 @@ dataSamples = {}
 
 MC_list = [
     # 'inclb',
-    'minbias',
+    'minbias1',
     ]
 
 for mc_type in MC_list:
     for MagnetPolarity in ('mu', 'md'):
-        dataSamples[mc_type+'_'+MagnetPolarity] = VariousOptionsMC(name = mc_type+'_'+MagnetPolarity, MagnetPolarity = MagnetPolarity, DDDBtag='Sim08-20130503-1',CondDBtag='Sim08-20130503-1-vc-md100')
+        dataSamples[mc_type+'_'+MagnetPolarity] = VariousOptionsMC(name = mc_type+'_'+MagnetPolarity, MagnetPolarity = MagnetPolarity, DDDBtag='Sim08-20130503-1',CondDBtag='Sim08-20130503-1-vc-{0}100'.format(MagnetPolarity))
 
 
 
@@ -98,13 +98,14 @@ for MagnetPolarity in ('mu', 'md'):
 
 
 # list of datasamples to be analized
-# toAnalize = []
-# toAnalize += [dataSamples['phi2KsKs_incl'], dataSamples['phi2KsKs_Ds']]
-# toAnalize += [i for i in dataSamples.values() if 'minbias' in i.name]
+toAnalize = []
+toAnalize += [dataSamples['phi2KsKs_incl']]#, dataSamples['phi2KsKs_Ds']]
+#toAnalize += [i for i in dataSamples.values() if 'minbias' in i.name]
+toAnalize += [dataSamples['minbias1_mu'], dataSamples['minbias1_md'], dataSamples['minbias2_mu'], dataSamples['minbias2_md']]
 # #toAnalize += [dataSample for key, dataSample in dataSamples.items() if key[:-3] in MC_list]
 # toAnalize += [dataSamples['data2012_mu'], dataSamples['data2012_md']]#, dataSamples['data2011_mu'], dataSamples['data2011_md']]
 
-toAnalize = [dataSamples['minbias2_mu'], dataSamples['minbias2_md'], dataSamples['minbias3_mu'], dataSamples['minbias3_md']]
+# toAnalize = [dataSamples['minbias2_mu'], dataSamples['minbias2_md'], dataSamples['minbias3_mu'], dataSamples['minbias3_md']]
 
 # toAnalize = toAnalize[:]
 
@@ -113,9 +114,9 @@ toAnalize = [dataSamples['minbias2_mu'], dataSamples['minbias2_md'], dataSamples
 # For test
 
 #dataSample = dataSamples['data2012_mu']
-#dataSample = dataSamples['minbias_md']
+dataSample = dataSamples['minbias1_md']
 #dataSample = dataSamples['phi2KsKs_incl']
-dataSample = dataSamples['phi2KsKs_Ds']
+#dataSample = dataSamples['phi2KsKs_Ds']
 
 
 # General options
