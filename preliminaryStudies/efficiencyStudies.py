@@ -21,9 +21,9 @@ store_dir = '~/phi2KsKs/files/'
 
 inFiles = {}
 #inFiles['data2012'] = r.TFile(os.path.join(store_dir, 'data2012.root'))
-inFiles['phi2KsKs_incl'] = r.TFile(os.path.join(store_dir, 'Ds_Phi2KsKs_incl.root'))
+#inFiles['phi2KsKs_incl'] = r.TFile(os.path.join(store_dir, 'Ds_Phi2KsKs_incl.root'))
 inFiles['phi2KsKs_Ds'] = r.TFile(os.path.join(store_dir, 'Ds_Phi2KsKs_Ds.root'))
-#inFiles['minbias'] = r.TFile(os.path.join(store_dir, 'minbias1.root'))
+inFiles['minbias'] = r.TFile(os.path.join(store_dir, 'Ds_Phi2KsKs_MBcomb.root'))
 
 
 trees = {}
@@ -59,6 +59,7 @@ truthlevel = ["","&&abs(pi1_TRUEID)==211&&abs(pi2_TRUEID)==211&&abs(pi3_TRUEID)=
 
 
 for key, inFile in inFiles.items():
+	print('###############################################')
 	print(key)
 	tree = trees[key]
 
