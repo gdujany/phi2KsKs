@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!-- Edited By PoolXMLCatalog.py -->
+<!DOCTYPE POOLFILECATALOG SYSTEM "InMemory">
+<POOLFILECATALOG>
+
+<File ID="245AA579-F176-E411-9EF0-001E67396C9D">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://heplnx231.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/CHARMCOMPLETEEVENT.DST/00041834/0000/00041834_00000527_1.charmcompleteevent.dst" se="RAL-HEP-DST"/>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/CHARMCOMPLETEEVENT.DST/00041834/0000/00041834_00000527_1.charmcompleteevent.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/CHARMCOMPLETEEVENT.DST/00041834/0000/00041834_00000527_1.charmcompleteevent.dst" se="GRIDKA-DST"/>
+      <pfn filetype="ROOT_All" name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/CHARMCOMPLETEEVENT.DST/00041834/0000/00041834_00000527_1.charmcompleteevent.dst" se="CNAF-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/CHARMCOMPLETEEVENT.DST/00041834/0000/00041834_00000527_1.charmcompleteevent.dst"/>
+   </logical>
+</File>
+
+</POOLFILECATALOG>
