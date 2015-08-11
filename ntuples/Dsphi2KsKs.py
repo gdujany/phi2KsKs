@@ -199,11 +199,9 @@ tuple.Ds.LoKi_Ds.Variables =  {
             "DTF_NDOF_noPV"   : "DTF_NDOF( False, 'KS0' )",
             "DTF_M_Ds_noPV"      : "DTF_FUN ( M, False, 'KS0' )",
             "DTF_M_Phi_noPV"    : "DTF_FUN ( CHILD(M,1), False, 'KS0' )",
-
-                       
-            # "DTF_CTAU_Ks1"    : "DTF_CTAU(1, False, 'phi(1020)' )",
-            # "DTF_CTAU_Ks2"    : "DTF_CTAU(2, False, 'phi(1020)' )",           
+         
             }
+
 
 tuple.phi.addTupleTool("LoKi::Hybrid::TupleTool/LoKi_phi")
 tuple.phi.LoKi_phi.Variables =  {
@@ -216,6 +214,11 @@ tuple.phi.LoKi_phi.Variables =  {
             "BPVIPCHI2" : "BPVIPCHI2()",
             "ADOCA" : "DOCA(1,2)",
             "ADOCACHI2" : "DOCACHI2(1,2)", 
+
+            "DTF_CTAU_Ks1"    : "DTF_CTAU(1, True, strings('KS0') )",
+            "DTF_CTAU_Ks2"    : "DTF_CTAU(2, True, strings('KS0') )",
+            "DTF_DT" : "DTF_CTAU(1, True, strings('KS0') )- DTF_CTAU(2, True, strings('KS0') )" ,
+            "DTF_ADT" : "abs(DTF_CTAU(1, True, strings('KS0') )- DTF_CTAU(2, True, strings('KS0') ))"  
             }
 
 def mySharedConf_Ks(branch):
