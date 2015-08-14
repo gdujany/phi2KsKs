@@ -54,7 +54,7 @@ toAppend2 = toAppend2 + ')&&'
 for k in Hlt2:
 	Triggers.append(toAppend2+k)
 
-truthlevel = ["","&&abs(pi1_TRUEID)==211&&abs(pi2_TRUEID)==211&&abs(pi3_TRUEID)==211&&abs(pi4_TRUEID)==211&&abs(pis_TRUEID)==211","&&abs(pi1_TRUEID)==211&&abs(pi2_TRUEID)==211&&abs(pi3_TRUEID)==211&&abs(pi4_TRUEID)==211&&abs(pis_TRUEID)==211&&Ks1_TRUEID==310&&Ks1_TRUEID==310","&abs(pi1_TRUEID)==211&&abs(pi2_TRUEID)==211&&abs(pi3_TRUEID)==211&&abs(pi4_TRUEID)==211&&abs(pis_TRUEID)==211&&Ks1_TRUEID==310&&Ks1_TRUEID==310&&phi_TRUEID==333"]
+truthlevel = ["","&&abs(pi1_TRUEID)==211&&abs(pi2_TRUEID)==211&&abs(pi3_TRUEID)==211&&abs(pi4_TRUEID)==211&&abs(pis_TRUEID)==211","&&abs(pi1_TRUEID)==211&&abs(pi2_TRUEID)==211&&abs(pi3_TRUEID)==211&&abs(pi4_TRUEID)==211&&abs(pis_TRUEID)==211&&Ks1_TRUEID==310&&Ks2_TRUEID==310","&abs(pi1_TRUEID)==211&&abs(pi2_TRUEID)==211&&abs(pi3_TRUEID)==211&&abs(pi4_TRUEID)==211&&abs(pis_TRUEID)==211&&Ks1_TRUEID==310&&Ks1_TRUEID==310&&phi_TRUEID==333"]
 
 
 

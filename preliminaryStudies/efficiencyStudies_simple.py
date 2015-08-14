@@ -36,10 +36,10 @@ BR_Ds_Ds = .045
 BR_Ds = BR_Ds_Ds*BR_incl
 GenCut_incl = .025
 GenCut_Ds = .070
-PropKsKl_bp1 = 5.8515935540744706e-07
-PropKsKl_bp2 = 8.1997422729700727e-10
-PropKsKs_bp1 = 5.8509591199106381e-07
-PropKsKs_bp2 = 8.103242056933593e-10
+PropKsKl_bp1 = 1.2165441366193347e-06
+PropKsKl_bp2 = 8.8825509906189207e-10
+PropKsKs_bp1 = 1.2163537611080399e-06
+PropKsKs_bp2 = 8.5929814968033921e-10
 
 
 
@@ -74,6 +74,9 @@ effi_L0_Ds = [(0.0,0.0,0.0),(0.0,0.0,0.0)] #[(1bp,1bp_TIS,1bp_TOS),(2bp,2bp_TIS,
 effi_Hlt1_incl = [(0.0,0.0,0.0),(0.0,0.0,0.0)] #[(1bp,1bp_TIS,1bp_TOS),(2bp,2bp_TIS,2bp_TOS)]
 effi_Hlt1_Ds = [(0.0,0.0,0.0),(0.0,0.0,0.0)] #[(1bp,1bp_TIS,1bp_TOS),(2bp,2bp_TIS,2bp_TOS)]
 
+effi_Hlt2_incl = [(0.0,0.0,0.0),(0.0,0.0,0.0)] #[(1bp,1bp_TIS,1bp_TOS),(2bp,2bp_TIS,2bp_TOS)]
+effi_Hlt2_Ds = [(0.0,0.0,0.0),(0.0,0.0,0.0)] #[(1bp,1bp_TIS,1bp_TOS),(2bp,2bp_TIS,2bp_TOS)]
+
 retention_incl = [0.0,0.0] #[1bp,2bp]
 retention_Ds = [0.0,0.0] #[1bp,2bp]
 
@@ -84,7 +87,7 @@ exp_SMbkg_Ds = [0.0,0.0] #[1bp,2bp]
 
 
 for key, inFile in inFiles.items():
-    # print('********************'+key+'********************')
+    print('********************'+key+'********************')
     trees[key] = inFile.Get('TuplePhi2KsKs/DecayTree')
     if(key=='phi2KsKs_incl' and not 'data2012' in key):
         treesMC[key] = inFile.Get('MCTuplephi2KsKs/MCDecayTree')
@@ -103,8 +106,21 @@ for key, inFile in inFiles.items():
     Hlt1trigger_TIS = '('
     Hlt1trigger_TOS = '('
 
+
     for i in names:
         if('Hlt1' in i and not 'Global' in i and not 'Phys' in i and not 'Hlt1LumiDecision' in i):
+            testif0 = 0
+            for j in ['phi_Hlt1LumiMidBeamCrossingDecision_Dec','phi_Hlt1MBNoBiasDecision_Dec','phi_Hlt1CharmCalibrationNoBiasDecision_Dec',
+                        'phi_Hlt1MBMicroBiasVeloDecision_Dec','phi_Hlt1MBMicroBiasTStationDecision_Dec','phi_Hlt1HighPtJetsSinglePVDecision_Dec',
+                        'phi_Hlt1L0AnyDecision_Dec','phi_Hlt1L0AnyNoSPDDecision_Dec','phi_Hlt1L0HighSumETJetDecision_Dec','phi_Hlt1DiProtonLowMultDecision_Dec',
+                        'phi_Hlt1BeamGasNoBeamBeam1Decision_Dec','phi_Hlt1BeamGasNoBeamBeam2Decision_Dec','phi_Hlt1BeamGasBeam1Decision_Dec',
+                        'phi_Hlt1BeamGasBeam2Decision_Dec','phi_Hlt1BeamGasCrossingEnhancedBeam1Decision_Dec','phi_Hlt1BeamGasCrossingEnhancedBeam2Decision_Dec',
+                        'phi_Hlt1BeamGasCrossingForcedRecoDecision_Dec','phi_Hlt1BeamGasCrossingForcedRecoFullZDecision_Dec','phi_Hlt1BeamGasHighRhoVerticesDecision_Dec',
+                        'phi_Hlt1ODINTechnicalDecision_Dec','phi_Hlt1Tell1ErrorDecision_Dec','phi_Hlt1VeloClosingMicroBiasDecision_Dec',
+                        'phi_Hlt1BeamGasCrossingParasiticDecision_Dec','phi_Hlt1ErrorEventDecision_Dec','phi_Hlt1GlobalDecision_Dec']:
+                if(j == i):
+                    testif0 = 1
+            if(testif0 == 1): continue
             if '_Dec' in i:
                 if Hlt1trigger == '(':
                     Hlt1trigger+=i
@@ -124,7 +140,72 @@ for key, inFile in inFiles.items():
                 
     Hlt1trigger += ')'
     Hlt1trigger_TOS += ')'
-    Hlt1trigger_TIS += ')'
+    Hlt1trigger_TIS += ')' 
+
+    Hlt1trigger = '('+Hlt1trigger_TIS + '||' + Hlt1trigger_TOS + ')'
+
+    Hlt2trigger = '('
+    Hlt2trigger_TIS = '('
+    Hlt2trigger_TOS = '('
+
+
+
+
+    for i in names:
+        if('Hlt2' in i and not 'Global' in i and not 'Phys' in i and not 'LumiDecision' in i and not 'ForwardDecision' in i):
+            testif0 = 0
+            for j in ['phi_Hlt2DiMuonJPsiDecision_Dec','phi_Hlt2DiMuonJPsiHighPTDecision_Dec','phi_Hlt2DiMuonPsi2SDecision_Dec','phi_Hlt2DiMuonPsi2SHighPTDecision_Dec','phi_Hlt2DiMuonBDecision_Dec',
+                        'phi_Hlt2DiMuonZDecision_Dec','phi_Hlt2DiMuonDY2Decision_Dec','phi_Hlt2DiMuonDY3Decision_Dec','phi_Hlt2DiMuonDY4Decision_Dec','phi_Hlt2DiMuonDetachedHeavyDecision_Dec',
+                        'phi_Hlt2DiMuonDetachedJPsiDecision_Dec','phi_Hlt2DiMuonDetachedPsi2SDecision_Dec','phi_Hlt2TriMuonDetachedDecision_Dec','phi_Hlt2DoubleDiMuonDecision_Dec',
+                        'phi_Hlt2DiMuonAndMuonDecision_Dec','phi_Hlt2TriMuonTauDecision_Dec','phi_Hlt2DiMuonAndGammaDecision_Dec','phi_Hlt2DiMuonAndD0Decision_Dec','phi_Hlt2DiMuonAndDpDecision_Dec',
+                        'phi_Hlt2DiMuonAndDsDecision_Dec','phi_Hlt2DiMuonAndLcDecision_Dec','phi_Hlt2SingleTFElectronDecision_Dec','phi_Hlt2SingleElectronTFHighPtDecision_Dec',
+                        'phi_Hlt2SingleTFVHighPtElectronDecision_Dec','phi_Hlt2DiElectronHighMassDecision_Dec','phi_Hlt2DiElectronBDecision_Dec','phi_Hlt2B2HHLTUnbiasedDetachedDecision_Dec','phi_Hlt2IncphiDecision_Dec',
+                        'phi_Hlt2Dst2PiD02MuMuDecision_Dec','phi_Hlt2Dst2PiD02KMuDecision_Dec','phi_Hlt2TransparentDecision_Dec','phi_Hlt2DebugEventDecision_Dec','phi_Hlt2CharmHadD2KS0KS0Decision_Dec',
+                        'phi_Hlt2CharmHadD2KS0KS0WideMassDecision_Dec','phi_Hlt2ExpressJPsiDecision_Dec','phi_Hlt2ExpressDs2phiPiDecision_Dec','phi_Hlt2ExpressDStar2D0PiDecision_Dec',
+                        'phi_Hlt2CharmHadLambdaC2PiPPiDecision_Dec','phi_Hlt2CharmHadLambdaC2PiPPiWideMassDecision_Dec','phi_Hlt2Bs2phiGammaDecision_Dec','phi_Hlt2Bs2phiGammaWideBMassDecision_Dec',
+                        'phi_Hlt2Bd2KstGammaDecision_Dec','phi_Hlt2Bd2KstGammaWideKMassDecision_Dec','phi_Hlt2Bd2KstGammaWideBMassDecision_Dec','phi_Hlt2DiphiDecision_Dec','phi_Hlt2KshortToMuMuPiPiDecision_Dec',
+                        'phi_Hlt2CharmRareDecayD02MuMuDecision_Dec','phi_Hlt2LowMultD2KPiDecision_Dec','phi_Hlt2LowMultD2KPiPiDecision_Dec','phi_Hlt2LowMultD2K3PiDecision_Dec','phi_Hlt2LowMultChiC2HHDecision_Dec',
+                        'phi_Hlt2LowMultChiC2HHHHDecision_Dec','phi_Hlt2LowMultChiC2PPDecision_Dec','phi_Hlt2LowMultD2KPiWSDecision_Dec','phi_Hlt2LowMultD2KPiPiWSDecision_Dec','phi_Hlt2LowMultD2K3PiWSDecision_Dec',
+                        'phi_Hlt2LowMultChiC2HHWSDecision_Dec','phi_Hlt2LowMultChiC2HHHHWSDecision_Dec','phi_Hlt2LowMultDDIncCPDecision_Dec','phi_Hlt2LowMultDDIncVFDecision_Dec','phi_Hlt2LowMultLMR2HHDecision_Dec',
+                        'phi_Hlt2SingleMuonVHighPTDecision_Dec','phi_Hlt2DiProtonDecision_Dec','phi_Hlt2DiProtonLowMultDecision_Dec','phi_Hlt2CharmHadMinBiasLambdaC2KPPiDecision_Dec','phi_Hlt2CharmHadMinBiasD02KPiDecision_Dec',
+                        'phi_Hlt2CharmHadMinBiasD02KKDecision_Dec','phi_Hlt2CharmHadMinBiasDplus2hhhDecision_Dec','phi_Hlt2CharmHadMinBiasLambdaC2LambdaPiDecision_Dec','phi_Hlt2HighPtJetsDecision_Dec',
+                        'phi_Hlt2TFBc2JpsiMuXDecision_Dec','phi_Hlt2TFBc2JpsiMuXSignalDecision_Dec','phi_Hlt2diPhotonDiMuonDecision_Dec','phi_Hlt2LowMultMuonDecision_Dec','phi_Hlt2LowMultHadronDecision_Dec',
+                        'phi_Hlt2LowMultHadron_nofilterDecision_Dec','phi_Hlt2LowMultPhotonDecision_Dec','phi_Hlt2LowMultElectronDecision_Dec','phi_Hlt2LowMultElectron_nofilterDecision_Dec',
+                        'phi_Hlt2ChargedHyperon_Xi2Lambda0LLPiDecision_Dec','phi_Hlt2ChargedHyperon_Xi2Lambda0LLMuDecision_Dec','phi_Hlt2ChargedHyperon_Omega2Lambda0LLKDecision_Dec',
+                        'phi_Hlt2ChargedHyperon_Xi2Lambda0DDPiDecision_Dec','phi_Hlt2ChargedHyperon_Xi2Lambda0DDMuDecision_Dec','phi_Hlt2DisplVerticesSingleDecision_Dec','phi_Hlt2DisplVerticesSingleHighFDDecision_Dec',
+                        'phi_Hlt2DisplVerticesSingleDownDecision_Dec','phi_Hlt2DisplVerticesSingleVeryHighFDDecision_Dec','phi_Hlt2DisplVerticesSingleHighMassDecision_Dec',
+                        'phi_Hlt2DisplVerticesDoubleDecision_Dec','phi_Hlt2DisplVerticesDoublePSDecision_Dec','phi_Hlt2CharmSemilep3bodyD2PiMuMuDecision_Dec','phi_Hlt2CharmSemilep3bodyD2PiMuMuSSDecision_Dec',
+                        'phi_Hlt2CharmSemilep3bodyD2KMuMuDecision_Dec','phi_Hlt2CharmSemilep3bodyD2KMuMuSSDecision_Dec','phi_Hlt2CharmSemilep3bodyLambdac2PMuMuDecision_Dec','phi_Hlt2CharmSemilep3bodyLambdac2PMuMuSSDecision_Dec',
+                        'phi_Hlt2LambdaC_LambdaC2Lambda0LLPiDecision_Dec','phi_Hlt2LambdaC_LambdaC2Lambda0LLKDecision_Dec','phi_Hlt2B2HHPi0_MergedDecision_Dec']:
+                if(j == i):
+                    testif0 = 1
+            if(testif0 == 1): continue
+            if '_Dec' in i:
+                if Hlt2trigger == '(':
+                    Hlt2trigger+=i
+                else: 
+                    Hlt2trigger += '||'+i
+            elif '_TIS' in i:
+                if Hlt2trigger_TIS == '(':
+                    Hlt2trigger_TIS+=i
+                else:
+                    Hlt2trigger_TIS += '||'+i
+            elif '_TOS' in i:
+                if Hlt2trigger_TOS == '(':
+                    Hlt2trigger_TOS+=i
+                else:
+                    Hlt2trigger_TOS += '||'+i
+                    
+                
+    Hlt2trigger += ')'
+    Hlt2trigger_TOS += ')'
+    Hlt2trigger_TIS += ')'
+    
+    # Hlt2trigger = '('+Hlt2trigger_TIS + '||' + Hlt2trigger_TOS + ')'
+
+
+
+    
 
     beampipe1 = '((sqrt(Ks1_ENDVERTEX_X*Ks1_ENDVERTEX_X+Ks1_ENDVERTEX_Y*Ks1_ENDVERTEX_Y)<7&&sqrt(Ks2_ENDVERTEX_X*Ks2_ENDVERTEX_X+Ks2_ENDVERTEX_Y*Ks2_ENDVERTEX_Y)>7)||(sqrt(Ks1_ENDVERTEX_X*Ks1_ENDVERTEX_X+Ks1_ENDVERTEX_Y*Ks1_ENDVERTEX_Y)>7&&sqrt(Ks2_ENDVERTEX_X*Ks2_ENDVERTEX_X+Ks2_ENDVERTEX_Y*Ks2_ENDVERTEX_Y)<7))'
     beampipe2 = '((sqrt(Ks1_ENDVERTEX_X*Ks1_ENDVERTEX_X+Ks1_ENDVERTEX_Y*Ks1_ENDVERTEX_Y)<7&&sqrt(Ks2_ENDVERTEX_X*Ks2_ENDVERTEX_X+Ks2_ENDVERTEX_Y*Ks2_ENDVERTEX_Y)<7))' 
@@ -135,7 +216,7 @@ for key, inFile in inFiles.items():
     selection +='phi_M>1010&&phi_M<1030' 
     if(not 'incl' in key):
         selection += ' && Ds_M > 1955 && Ds_M < 1985'
-        selection += '&& phi_IPCHI2_OWNPV >=50'
+        selection += '&& phi_IPCHI2_OWNPV >=15'#'&& phi_IPCHI2_OWNPV >=50'
         if('data' in key):
             print 'Selection: ', selection
     # print '*************************************************************************************************************'
@@ -171,6 +252,25 @@ for key, inFile in inFiles.items():
             retention_Ds = [ret1,ret2] #[1bp,2bp]
         if 'incl' in key:
             retention_incl = [ret1,ret2] #[1bp,2bp]
+
+        canv = r.TCanvas("bla","blub")
+        trees[key].Draw("phi_BKGCAT",selection+'&&'+L0trigger+'&&'+Hlt1trigger, "text")
+        if 'Ds' in key:
+            canv.Print("Ds_bkgcat.pdf")
+        else:
+            canv.Print("incl_bkgcat.pdf")
+        del canv
+
+        canv2 = r.TCanvas("bla","blub")
+        trees[key].Draw("phi_BKGCAT",selection+'&&'+L0trigger+'&&'+Hlt1trigger+'&&Ks1_TRUEID==310&&Ks2_TRUEID==310', "text")
+        if 'Ds' in key:
+            canv2.Print("Ds_bkgcat_TK.pdf")
+        else:
+            canv2.Print("incl_bkgcat_TK.pdf")
+        del canv2
+
+
+
     elif('phi2KsKs' in key):
         if(key=='phi2KsKs_incl'):
             MC1 = treesMC[key].GetEntries('(sqrt(KS0_TRUEENDVERTEX_X*KS0_TRUEENDVERTEX_X+KS0_TRUEENDVERTEX_Y*KS0_TRUEENDVERTEX_Y)<7&&sqrt(KS00_TRUEENDVERTEX_X*KS00_TRUEENDVERTEX_X+KS00_TRUEENDVERTEX_Y*KS00_TRUEENDVERTEX_Y)>7)||(sqrt(KS0_TRUEENDVERTEX_X*KS0_TRUEENDVERTEX_X+KS0_TRUEENDVERTEX_Y*KS0_TRUEENDVERTEX_Y)>7&&sqrt(KS00_TRUEENDVERTEX_X*KS00_TRUEENDVERTEX_X+KS00_TRUEENDVERTEX_Y*KS00_TRUEENDVERTEX_Y)<7)')
@@ -178,6 +278,7 @@ for key, inFile in inFiles.items():
         else:
             MC1 = treesMC[key].GetEntries('(sqrt(Ks1_TRUEENDVERTEX_X*Ks1_TRUEENDVERTEX_X+Ks1_TRUEENDVERTEX_Y*Ks1_TRUEENDVERTEX_Y)<7&&sqrt(Ks2_TRUEENDVERTEX_X*Ks2_TRUEENDVERTEX_X+Ks2_TRUEENDVERTEX_Y*Ks2_TRUEENDVERTEX_Y)>7)||(sqrt(Ks1_TRUEENDVERTEX_X*Ks1_TRUEENDVERTEX_X+Ks1_TRUEENDVERTEX_Y*Ks1_TRUEENDVERTEX_Y)>7&&sqrt(Ks2_TRUEENDVERTEX_X*Ks2_TRUEENDVERTEX_X+Ks2_TRUEENDVERTEX_Y*Ks2_TRUEENDVERTEX_Y)<7)')
             MC2 = treesMC[key].GetEntries('(sqrt(Ks1_TRUEENDVERTEX_X*Ks1_TRUEENDVERTEX_X+Ks1_TRUEENDVERTEX_Y*Ks1_TRUEENDVERTEX_Y)<7&&sqrt(Ks2_TRUEENDVERTEX_X*Ks2_TRUEENDVERTEX_X+Ks2_TRUEENDVERTEX_Y*Ks2_TRUEENDVERTEX_Y)<7)' )
+
         Reco1 = trees[key].GetEntries(selection+'&&'+truthmatch+'&&'+beampipe1)
         Reco2 = trees[key].GetEntries(selection+'&&'+truthmatch+'&&'+beampipe2)
         RecoL01 = trees[key].GetEntries(selection+'&&'+truthmatch+'&&'+L0trigger+'&&'+beampipe1)
@@ -192,22 +293,28 @@ for key, inFile in inFiles.items():
         RecoL0Hlt12 = trees[key].GetEntries(selection+'&&'+truthmatch+'&&'+L0trigger+'&&'+Hlt1trigger+'&&'+beampipe2)
         RecoL0Hlt12_TIS = trees[key].GetEntries(selection+'&&'+truthmatch+'&&'+L0trigger+'&&'+Hlt1trigger_TIS+'&&'+beampipe2)
         RecoL0Hlt12_TOS = trees[key].GetEntries(selection+'&&'+truthmatch+'&&'+L0trigger+'&&'+Hlt1trigger_TOS+'&&'+beampipe2)
+        RecoL0Hlt1Hlt21 = trees[key].GetEntries(selection+'&&'+truthmatch+'&&'+L0trigger+'&&'+Hlt1trigger+'&&'+Hlt2trigger+'&&'+beampipe1)
+        RecoL0Hlt1Hlt21_TIS = trees[key].GetEntries(selection+'&&'+truthmatch+'&&'+L0trigger+'&&'+Hlt1trigger+'&&'+Hlt2trigger_TIS+'&&'+beampipe1)
+        RecoL0Hlt1Hlt21_TOS = trees[key].GetEntries(selection+'&&'+truthmatch+'&&'+L0trigger+'&&'+Hlt1trigger+'&&'+Hlt2trigger_TOS+'&&'+beampipe1)
+        RecoL0Hlt1Hlt22 = trees[key].GetEntries(selection+'&&'+truthmatch+'&&'+L0trigger+'&&'+Hlt1trigger+'&&'+Hlt2trigger+'&&'+beampipe2)
+        RecoL0Hlt1Hlt22_TIS = trees[key].GetEntries(selection+'&&'+truthmatch+'&&'+L0trigger+'&&'+Hlt1trigger+'&&'+Hlt2trigger_TIS+'&&'+beampipe2)
+        RecoL0Hlt1Hlt22_TOS = trees[key].GetEntries(selection+'&&'+truthmatch+'&&'+L0trigger+'&&'+Hlt1trigger+'&&'+Hlt2trigger_TOS+'&&'+beampipe2)
+
+
+
+
+
 
         if('Ds' in key):
             effi_Reco_Ds = [float(Reco1)/float(MC1),float(Reco2)/float(MC2)] #[1bp,2bp]
-            effi_L0_Ds = [(float(RecoL01)/float(Reco1),float(RecoL01_TIS)/float(RecoL01),float(RecoL01_TOS)/float(RecoL01)),(float(RecoL02)/float(Reco2),float(RecoL02_TIS)/float(RecoL02),float(RecoL02_TOS)/float(RecoL02))] #[(1bp,1bp_TIS,1bp_TOS),(2bp,2bp_TIS,2bp_TOS)]
-            effi_Hlt1_Ds = [(float(RecoL0Hlt11)/float(RecoL01),float(RecoL0Hlt11_TIS)/float(RecoL0Hlt11),float(RecoL0Hlt11_TOS)/float(RecoL0Hlt11)),(float(RecoL0Hlt12)/float(RecoL02),float(RecoL0Hlt12_TIS)/float(RecoL0Hlt12),float(RecoL0Hlt12_TOS)/float(RecoL0Hlt12))] #[(1bp,1bp_TIS,1bp_TOS),(2bp,2bp_TIS,2bp_TOS)]
+            effi_L0_Ds = [(-9999.9 if Reco1 == 0 else float(RecoL01)/float(Reco1), -9999.9 if RecoL01 == 0 else float(RecoL01_TIS)/float(RecoL01), -9999.9 if RecoL01 == 0 else float(RecoL01_TOS)/float(RecoL01)),(-9999.9 if Reco2 == 0 else float(RecoL02)/float(Reco2), -9999.9 if RecoL02 == 0 else float(RecoL02_TIS)/float(RecoL02), -9999.9 if RecoL02 == 0 else float(RecoL02_TOS)/float(RecoL02))] #[(1bp,1bp_TIS,1bp_TOS),(2bp,2bp_TIS,2bp_TOS)]
+            effi_Hlt1_Ds = [(-9999.9 if RecoL01 == 0 else float(RecoL0Hlt11)/float(RecoL01), -9999.9 if RecoL0Hlt11 == 0 else float(RecoL0Hlt11_TIS)/float(RecoL0Hlt11), -9999.9 if RecoL0Hlt11 == 0 else float(RecoL0Hlt11_TOS)/float(RecoL0Hlt11)),(-9999.9 if RecoL02 == 0 else float(RecoL0Hlt12)/float(RecoL02), -9999.9 if RecoL0Hlt12 == 0 else float(RecoL0Hlt12_TIS)/float(RecoL0Hlt12), -9999.9 if RecoL0Hlt12 == 0 else float(RecoL0Hlt12_TOS)/float(RecoL0Hlt12))] #[(1bp,1bp_TIS,1bp_TOS),(2bp,2bp_TIS,2bp_TOS)]
+            effi_Hlt2_Ds = [(-9999.9 if RecoL0Hlt11 == 0 else float(RecoL0Hlt1Hlt21)/float(RecoL0Hlt11), -9999.9 if RecoL0Hlt1Hlt21 == 0 else float(RecoL0Hlt1Hlt21_TIS)/float(RecoL0Hlt1Hlt21), -9999.9 if RecoL0Hlt1Hlt21 == 0 else float(RecoL0Hlt1Hlt21_TOS)/float(RecoL0Hlt1Hlt21)),(-9999.9 if RecoL0Hlt12 == 0 else float(RecoL0Hlt1Hlt22)/float(RecoL0Hlt12), -9999.9 if RecoL0Hlt1Hlt22 == 0 else float(RecoL0Hlt1Hlt22_TIS)/float(RecoL0Hlt1Hlt22), -9999.9 if RecoL0Hlt1Hlt22 == 0 else float(RecoL0Hlt1Hlt22_TOS)/float(RecoL0Hlt1Hlt22))] #[(1bp,1bp_TIS,1bp_TOS),(2bp,2bp_TIS,2bp_TOS)]
         elif('incl' in key):
             effi_Reco_incl = [float(Reco1)/float(MC1),float(Reco2)/float(MC2)] #[1bp,2bp]
-            if(RecoL01 > 0 and RecoL02 > 0):
-                effi_L0_incl = [(float(RecoL01)/float(Reco1),float(RecoL01_TIS)/float(RecoL01),float(RecoL01_TOS)/float(RecoL01)),(float(RecoL02)/float(Reco),float(RecoL02_TIS)/float(RecoL02),float(RecoL02_TOS)/float(RecoL02))] #[(1bp,1bp_TIS,1bp_TOS),(2bp,2bp_TIS,2bp_TOS)]
-            elif(RecoL01 > 0):
-                effi_L0_incl = [(float(RecoL01)/float(Reco1),0.0,0.0),(float(RecoL02)/float(Reco),float(RecoL02_TIS)/float(RecoL02),float(RecoL02_TOS)/float(RecoL02))] #[(1bp,1bp_TIS,1bp_TOS),(2bp,2bp_TIS,2bp_TOS)]
-            elif(RecoL02 > 0):
-                effi_L0_incl = [(float(RecoL01)/float(Reco1),float(RecoL01_TIS)/float(RecoL01),float(RecoL01_TOS)/float(RecoL01)),(float(RecoL02)/float(Reco),0.0,0.0)] #[(1bp,1bp_TIS,1bp_TOS),(2bp,2bp_TIS,2bp_TOS)]
-            else:
-                effi_L0_incl = [(0.0,0.0,0.0),(0.0,0.0,0.0)]
-            effi_Hlt1_incl = [(0.0 if RecoL01 == 0 else float(RecoL0Hlt11)/float(RecoL01), 0.0 if RecoL0Hlt11 == 0 else float(RecoL0Hlt11_TIS)/float(RecoL0Hlt11), 0.0 if RecoL0Hlt11 == 0 else float(RecoL0Hlt11_TOS)/float(RecoL0Hlt11)),(0.0 if RecoL02 == 0 else float(RecoL0Hlt12)/float(RecoL02), 0.0 if RecoL0Hlt12 == 0 else float(RecoL0Hlt12_TIS)/float(RecoL0Hlt12), 0.0 if RecoL0Hlt12 == 0 else float(RecoL0Hlt12_TOS)/float(RecoL0Hlt12))] #[(1bp,1bp_TIS,1bp_TOS),(2bp,2bp_TIS,2bp_TOS)]
+            effi_L0_incl = [(-9999.9 if Reco1 == 0 else float(RecoL01)/float(Reco1), -9999.9 if RecoL01 == 0 else float(RecoL01_TIS)/float(RecoL01), -9999.9 if RecoL01 == 0 else float(RecoL01_TOS)/float(RecoL01)),(-9999.9 if Reco2 == 0 else float(RecoL02)/float(Reco2), -9999.9 if RecoL02 == 0 else float(RecoL02_TIS)/float(RecoL02), -9999.9 if RecoL02 == 0 else float(RecoL02_TOS)/float(RecoL02))] #[(1bp,1bp_TIS,1bp_TOS),(2bp,2bp_TIS,2bp_TOS)]
+            effi_Hlt1_incl = [(-9999.9 if RecoL01 == 0 else float(RecoL0Hlt11)/float(RecoL01), -9999.9 if RecoL0Hlt11 == 0 else float(RecoL0Hlt11_TIS)/float(RecoL0Hlt11), -9999.9 if RecoL0Hlt11 == 0 else float(RecoL0Hlt11_TOS)/float(RecoL0Hlt11)),(-9999.9 if RecoL02 == 0 else float(RecoL0Hlt12)/float(RecoL02), -9999.9 if RecoL0Hlt12 == 0 else float(RecoL0Hlt12_TIS)/float(RecoL0Hlt12), -9999.9 if RecoL0Hlt12 == 0 else float(RecoL0Hlt12_TOS)/float(RecoL0Hlt12))] #[(1bp,1bp_TIS,1bp_TOS),(2bp,2bp_TIS,2bp_TOS)]
+            effi_Hlt2_incl = [(-9999.9 if RecoL0Hlt11 == 0 else float(RecoL0Hlt1Hlt21)/float(RecoL0Hlt11), -9999.9 if RecoL0Hlt1Hlt21 == 0 else float(RecoL0Hlt1Hlt21_TIS)/float(RecoL0Hlt1Hlt21), -9999.9 if RecoL0Hlt1Hlt21 == 0 else float(RecoL0Hlt1Hlt21_TOS)/float(RecoL0Hlt1Hlt21)),(-9999.9 if RecoL0Hlt12 == 0 else float(RecoL0Hlt1Hlt22)/float(RecoL0Hlt12), -9999.9 if RecoL0Hlt1Hlt22 == 0 else float(RecoL0Hlt1Hlt22_TIS)/float(RecoL0Hlt1Hlt22), -9999.9 if RecoL0Hlt1Hlt22 == 0 else float(RecoL0Hlt1Hlt22_TOS)/float(RecoL0Hlt1Hlt22))] #[(1bp,1bp_TIS,1bp_TOS),(2bp,2bp_TIS,2bp_TOS)]
         
 
 
@@ -229,17 +336,18 @@ print '\hline '
 print 'Cross section (\SI{14}{TeV}), LHCb acceptance & \SI{',xsec_incl,'}{\micro\\barn} & \SI{',xsec_Ds,'}{\micro\\barn} \\\\' 
 print 'Branching fractions &',BR_incl*100,'\% &',BR_Ds_Ds*100,' \% $\cdot$ ',BR_incl*100,'\% \\\\'
 print 'Generator cut efficiency &',GenCut_incl*100,'\% &', GenCut_Ds*100 ,'\%\\\\'
-print 'Propability of $K_sK_L \\rightarrow 4\pi$ with exactly 1 (2) decays in the beam pipe &\multicolumn{2}{c}{$',format_e(PropKsKl_bp1),'$($',format_e(PropKsKl_bp2),'$)} \\\\'
-print '(Propability of $K_sK_s \\rightarrow 4\pi$ with exactly 1 (2) decays in the beam pipe &\multicolumn{2}{c}{17.6\%(2.8\%))} \\\\'
+print 'Probability of $K_sK_L \\rightarrow 4\pi$ with exactly 1 (2) decays in the beam pipe &\multicolumn{2}{c}{$',format_e(PropKsKl_bp1),'$($',format_e(PropKsKl_bp2),'$)} \\\\'
+print '(Probability of $K_sK_s \\rightarrow 4\pi$ with exactly 1 (2) decays in the beam pipe &\multicolumn{2}{c}{$', '6\%','$($','18\%','$))} \\\\'
 print 'Reconstruction \& selection efficiency & ',round(effi_Reco_incl[0]*100,1),'\%(',round(effi_Reco_incl[1]*100,1),'\%)  &',round(effi_Reco_Ds[0]*100,1),'\%(',round(effi_Reco_Ds[1]*100,1),'\%)\\\\'
 print 'L0 efficiency& ',round(effi_L0_incl[0][0]*100,1),'\%(',round(effi_L0_incl[1][0]*100,1),'\%)& ',round(effi_L0_Ds[0][0]*100,1),'\%(',round(effi_L0_Ds[1][0]*100,1),'\%)\\\\'
 print 'HLT1 efficiency& ',round(effi_Hlt1_incl[0][0]*100,1),'\%(',round(effi_Hlt1_incl[1][0]*100,1),'\%)&',round(effi_Hlt1_Ds[0][0]*100,1),'\%(',round(effi_Hlt1_Ds[1][0]*100,1),'\%)\\\\'
+print 'HLT2 efficiency& ',round(effi_Hlt2_incl[0][0]*100,1),'\%(',round(effi_Hlt2_incl[1][0]*100,1),'\%)&',round(effi_Hlt2_Ds[0][0]*100,1),'\%(',round(effi_Hlt2_Ds[1][0]*100,1),'\%)\\\\'
 print '\hline'
 print 'Total efficiency SM background &$',format_e(GenCut_incl*effi_Reco_incl[0]*effi_L0_incl[0][0]*effi_Hlt1_incl[0][0]),'$($',format_e(GenCut_incl*effi_Reco_incl[1]*effi_L0_incl[1][0]*effi_Hlt1_incl[1][0]),'$)&$',format_e(GenCut_Ds*effi_Reco_Ds[0]*effi_L0_Ds[0][0]*effi_Hlt1_Ds[0][0]),'$($',format_e(GenCut_Ds*effi_Reco_Ds[1]*effi_L0_Ds[1][0]*effi_Hlt1_Ds[1][0]),'$)\\\\'
 print 'Expected events SM background / fb$^{-1}$ &$', isint(1e9*xsec_incl*BR_incl*GenCut_incl*PropKsKl_bp1*effi_Reco_incl[0]*effi_L0_incl[0][0]*effi_Hlt1_incl[0][0]) ,'$($', isint(1e9*xsec_incl*BR_incl*GenCut_incl*PropKsKl_bp2*effi_Reco_incl[1]*effi_L0_incl[1][0]*effi_Hlt1_incl[1][0]),'$)&$',isint(1e9*xsec_Ds*BR_Ds*GenCut_Ds*PropKsKl_bp1*effi_Reco_Ds[0]*effi_L0_Ds[0][0]*effi_Hlt1_Ds[0][0]),'$($',isint(1e9*xsec_Ds*BR_Ds*GenCut_Ds*PropKsKl_bp2*effi_Reco_Ds[1]*effi_L0_Ds[1][0]*effi_Hlt1_Ds[1][0]),'$)\\\\'
 print 'Upper limit for signal (KLOE) &$', isint(1e9*xsec_incl*BR_incl*GenCut_incl*PropKsKs_bp1*effi_Reco_incl[0]*effi_L0_incl[0][0]*effi_Hlt1_incl[0][0]) ,'$($', isint(1e9*xsec_incl*BR_incl*GenCut_incl*PropKsKs_bp2*effi_Reco_incl[1]*effi_L0_incl[1][0]*effi_Hlt1_incl[1][0]),'$)&$',isint(1e9*xsec_Ds*BR_Ds*GenCut_Ds*PropKsKs_bp1*effi_Reco_Ds[0]*effi_L0_Ds[0][0]*effi_Hlt1_Ds[0][0]),'$($',isint(1e9*xsec_Ds*BR_Ds*GenCut_Ds*PropKsKs_bp2*effi_Reco_Ds[1]*effi_L0_Ds[1][0]*effi_Hlt1_Ds[1][0]),'$)\\\\'
-print 'Total background retention & $',format_e(retention_incl[0]),'$($',format_e(retention_incl[1]),'$) &$', format_e(retention_Ds[0]),'$($',retention_Ds[1],'$)\\\\'
-print 'Expected background ($\SI{1000}{MeV} < m_\phi < \SI{1040}{MeV}$) / fb$^{-1}$ &', int(round(exp_combbkg_incl[0],-1)) ,'(',int(round(exp_combbkg_incl[1],-1)),') & ',int(round(exp_combbkg_Ds[0],-1)),'(',int(round(exp_combbkg_Ds[1],-1)),')\\\\'
+# print 'Total background retention & $',format_e(retention_incl[0]),'$($',format_e(retention_incl[1]),'$) &$', format_e(retention_Ds[0]),'$($',retention_Ds[1],'$)\\\\'
+print 'Background (data 2012) / fb$^{-1}$ &', int(round(exp_combbkg_incl[0],-1)) ,'(',int(round(exp_combbkg_incl[1],-1)),') & ',int(round(exp_combbkg_Ds[0],-1)),'(',int(round(exp_combbkg_Ds[1],-1)),')\\\\'
 print '\end{tabular}' 
 
 
@@ -254,5 +362,6 @@ print '& TIS & TOS & TIS & TOS & TIS & TOS & TIS & TOS\\\\'
 print '\hline '
 print 'L0 efficiency & ',round(effi_L0_incl[0][1],2),' & ',round(effi_L0_incl[0][2],2),' & ',round(effi_L0_incl[1][1],2),' & ',round(effi_L0_incl[1][2],2),' & ',round(effi_L0_Ds[0][1],2),' & ',round(effi_L0_Ds[0][2],2),' & ',round(effi_L0_Ds[1][1],2),' & ',round(effi_L0_Ds[1][2],2),' \\\\ '
 print 'HLT1 efficiency & ',round(effi_Hlt1_incl[0][1],2),' & ',round(effi_Hlt1_incl[0][2],2),' & ', round(effi_Hlt1_incl[1][1],2),' & ',round(effi_Hlt1_incl[1][2],2),' & ',round(effi_Hlt1_Ds[0][1],2),' & ',round(effi_Hlt1_Ds[0][2],2),' & ',round(effi_Hlt1_Ds[1][1],2),' & ',round(effi_Hlt1_Ds[1][2],2),' \\\\ '
+print 'HLT2 efficiency & ',round(effi_Hlt2_incl[0][1],2),' & ',round(effi_Hlt2_incl[0][2],2),' & ', round(effi_Hlt2_incl[1][1],2),' & ',round(effi_Hlt2_incl[1][2],2),' & ',round(effi_Hlt2_Ds[0][1],2),' & ',round(effi_Hlt2_Ds[0][2],2),' & ',round(effi_Hlt2_Ds[1][1],2),' & ',round(effi_Hlt2_Ds[1][2],2),' \\\\ '
 print '\end{tabular}' 
 
