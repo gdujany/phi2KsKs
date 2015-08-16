@@ -102,6 +102,7 @@ toAnalize = []
 toAnalize += [dataSamples['phi2KsKs_incl']]#, dataSamples['phi2KsKs_Ds']]
 #toAnalize += [i for i in dataSamples.values() if 'minbias' in i.name]
 toAnalize += [dataSamples['minbias1_mu'], dataSamples['minbias1_md'], dataSamples['minbias2_mu'], dataSamples['minbias2_md']]
+toAnalize = [dataSamples['minbias1_mu'], dataSamples['minbias2_mu']]
 # #toAnalize += [dataSample for key, dataSample in dataSamples.items() if key[:-3] in MC_list]
 # toAnalize += [dataSamples['data2012_mu'], dataSamples['data2012_md']]#, dataSamples['data2011_mu'], dataSamples['data2011_md']]
 
