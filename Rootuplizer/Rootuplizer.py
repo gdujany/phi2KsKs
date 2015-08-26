@@ -155,15 +155,10 @@ class strippingLine:
             "ADOCA" : "DOCA(1,2)",
             "ADOCACHI2" : "DOCACHI2(1,2)",
 
-            "DTF_CHI2_PV"   : "DTF_CHI2( True, 'phi(1020)' )",
-            "DTF_NDOF_PV"   : "DTF_NDOF( True, 'phi(1020)' )",
-            "DTF_M_PV"      : "DTF_FUN ( M, True, 'phi(1020)' )",
-            "DTF_M_Ks1_PV"    : "DTF_FUN ( CHILD(M,1), True, 'phi(1020)' )",
-            "DTF_M_Ks2_PV"    : "DTF_FUN ( CHILD(M,2), True, 'phi(1020)' )",
-           
-            # "DTF_CTAU_Ks1"    : "DTF_CTAU(1, False, 'phi(1020)' )",
-            # "DTF_CTAU_Ks2"    : "DTF_CTAU(2, False, 'phi(1020)' )",
-            
+            "DTF_CTAU_Ks1"    : "DTF_CTAU(1, True, strings('KS0') )",
+            "DTF_CTAU_Ks2"    : "DTF_CTAU(2, True, strings('KS0') )",
+            "DTF_DT" : "DTF_CTAU(1, True, strings('KS0') )- DTF_CTAU(2, True, strings('KS0') )" ,
+            "DTF_ADT" : "abs(DTF_CTAU(1, True, strings('KS0') )- DTF_CTAU(2, True, strings('KS0') ))"
            
             }
         
