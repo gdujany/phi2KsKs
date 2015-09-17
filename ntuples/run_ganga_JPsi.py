@@ -4,8 +4,8 @@ gridProxy.renew()
 t = JobTemplate()
 t.application="DaVinci"
 t.name = "ds2phipi 12"
-t.application.optsfile="Dsphi2KsKs_stripping.py"
-bk_down = BKQuery(r'/LHCb/Collision12/Beam4000GeV-VeloClosed-MagDown/Real Data/Reco14/Stripping21/90000000/CHARMCOMPLETEEVENT.DST')
+t.application.optsfile="JPsi2KsKs.py"
+bk_down = BKQuery(r'/LHCb/Collision12/Beam4000GeV-VeloClosed-MagDown/Real Data/Reco14/Stripping21/90000000/CHARM.MDST')
 ds = bk_down.getDataset() 
 bk_up = BKQuery(bk_down.path.replace('Down','Up'))
 ds.extend(bk_up.getDataset()) 

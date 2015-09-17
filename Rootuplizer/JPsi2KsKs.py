@@ -127,28 +127,23 @@ class strippingLine:
         
         tuple.addBranches(self.branches)
         
-        tuple.phi.addTupleTool("LoKi::Hybrid::TupleTool/LoKi_phi")
-        tuple.phi.LoKi_phi.Variables =  {
+        tuple.JPsi.addTupleTool("LoKi::Hybrid::TupleTool/LoKi_JPsi")
+
+        tuple.JPsi.LoKi_JPsi.Variables =  {
             'DOCAMAX' : 'DOCAMAX',
-            "MassDiff_Phi" : "DMASS('phi(1020)')",
+            "MassDiff_JPsi" : "DMASS('J/psi(1S)')",
             "BPVDIRA" : "BPVDIRA",
-            "IPS_Phi" : "MIPCHI2DV(PRIMARY)",
+            "IPS_Psi" : "MIPCHI2DV(PRIMARY)",
             "VFASPF_CHI2DOF" : "VFASPF(VCHI2/VDOF)",
             "VFASPF_CHI2" : "VFASPF(VCHI2)",
             "BPVIPCHI2" : "BPVIPCHI2()",
             "ADOCA" : "DOCA(1,2)",
-            "ADOCACHI2" : "DOCACHI2(1,2)",
+            "ADOCACHI2" : "DOCACHI2(1,2)", 
 
-            "DTF_CHI2_PV"   : "DTF_CHI2( True, 'phi(1020)' )",
-            "DTF_NDOF_PV"   : "DTF_NDOF( True, 'phi(1020)' )",
-            "DTF_M_PV"      : "DTF_FUN ( M, True, 'phi(1020)' )",
-            "DTF_M_Ks1_PV"    : "DTF_FUN ( CHILD(M,1), True, 'phi(1020)' )",
-            "DTF_M_Ks2_PV"    : "DTF_FUN ( CHILD(M,2), True, 'phi(1020)' )",
-           
-            # "DTF_CTAU_Ks1"    : "DTF_CTAU(1, False, 'phi(1020)' )",
-            # "DTF_CTAU_Ks2"    : "DTF_CTAU(2, False, 'phi(1020)' )",
-            
-           
+            "DTF_CTAU_Ks1"    : "DTF_CTAU(1, True, strings('KS0') )",
+            "DTF_CTAU_Ks2"    : "DTF_CTAU(2, True, strings('KS0') )",
+            "DTF_DT" : "DTF_CTAU(1, True, strings('KS0') )- DTF_CTAU(2, True, strings('KS0') )" ,
+            "DTF_ADT" : "abs(DTF_CTAU(1, True, strings('KS0') )- DTF_CTAU(2, True, strings('KS0') ))"  
             }
         
 
@@ -185,11 +180,11 @@ class strippingLine:
 
         
         # Triggers:   
-        tuple.phi.addTupleTool('TupleToolTISTOS/TISTOS')
-        tuple.phi.TISTOS.TriggerList = trigger_list
-        tuple.phi.TISTOS.VerboseL0   = True
-        tuple.phi.TISTOS.VerboseHlt1 = True
-        tuple.phi.TISTOS.VerboseHlt2 = True
+        tuple.JPsi.addTupleTool('TupleToolTISTOS/TISTOS')
+        tuple.JPsi.TISTOS.TriggerList = trigger_list
+        tuple.JPsi.TISTOS.VerboseL0   = True
+        tuple.JPsi.TISTOS.VerboseHlt1 = True
+        tuple.JPsi.TISTOS.VerboseHlt2 = True
         
                 
         if dataSample.isMC:
@@ -200,7 +195,7 @@ class strippingLine:
                                       'MCTupleToolReconstructed',
                                       'MCTupleToolAngles',
                                       ]
-            tuple.phi.addTupleTool( "TupleToolMCBackgroundInfo")
+            tuple.JPsi.addTupleTool( "TupleToolMCBackgroundInfo")
 
         
         self.sequence.sequence().Members += [tuple]
@@ -214,7 +209,7 @@ def addMCTuple(name, decayDescriptor):
     '''
      # MC    
     mcTuple = MCDecayTreeTuple('MCTuple'+name) # I can put as an argument a name if I use more than a MCDecayTreeTuple
-    mcTuple.Decay = decayDescriptor #'[phi(1020) -> ^(KS0 -> ^pi+ ^pi-) ^(KS0 -> ^pi+ ^pi-)]CC'
+    mcTuple.Decay = decayDescriptor 
     mcTuple.ToolList = ['MCTupleToolKinematic',
                         'TupleToolEventInfo',
                         'MCTupleToolHierarchy',
@@ -236,7 +231,7 @@ else:
     
 DaVinci().Simulation = dataSample.isMC
 DaVinci().DataType = dataSample.dataType
-DaVinci().EvtMax = -1#nEvents # 100000
+DaVinci().EvtMax = nEvents # 100000
 DaVinci().Lumi = not dataSample.isMC
 
 from Configurables import CondDB
@@ -262,16 +257,16 @@ if dataSample.CondDBtag: DaVinci().CondDBtag = dataSample.CondDBtag
 ##################
 
 
-Phi2KsKs_line = strippingLine(name = 'Phi2KsKs',
-                              lineName = 'PhiToKSKS_PhiToKsKsLine',
-                              dec = '[phi(1020) -> ^(KS0 -> ^pi+ ^pi-) ^(KS0 -> ^pi+ ^pi-)]CC',
-                              branches = {'phi' : '[phi(1020) -> (KS0 -> pi+ pi-) (KS0 -> pi+ pi-)]CC',
-                                          'Ks1' : '[phi(1020) -> ^(KS0 -> pi+ pi-) (KS0 -> pi+ pi-)]CC',
-                                          'Ks2' : '[phi(1020) -> (KS0 -> pi+ pi-) ^(KS0 -> pi+ pi-)]CC',
-                                          'pi1' : '[phi(1020) -> (KS0 -> ^pi+ pi-) (KS0 -> pi+ pi-)]CC',
-                                          'pi2' : '[phi(1020) -> (KS0 -> pi+ ^pi-) (KS0 -> pi+ pi-)]CC',
-                                          'pi3' : '[phi(1020) -> (KS0 -> pi+ pi-) (KS0 -> ^pi+ pi-)]CC',
-                                          'pi4' : '[phi(1020) -> (KS0 -> pi+ pi-) (KS0 -> pi+ ^pi-)]CC',
+JPsi2KsKs_line = strippingLine(name = 'JPsi2KsKs',
+                              lineName = 'JPsiToKSKS_JPsiToKsKsLine',
+                              dec = '[J/psi(1S) -> ^(KS0 -> ^pi+ ^pi-) ^(KS0 -> ^pi+ ^pi-)]CC',
+                              branches = {'JPsi' : '[J/psi(1S) -> (KS0 -> pi+ pi-) (KS0 -> pi+ pi-)]CC',
+                                          'Ks1' : '[J/psi(1S) -> ^(KS0 -> pi+ pi-) (KS0 -> pi+ pi-)]CC',
+                                          'Ks2' : '[J/psi(1S) -> (KS0 -> pi+ pi-) ^(KS0 -> pi+ pi-)]CC',
+                                          'pi1' : '[J/psi(1S) -> (KS0 -> ^pi+ pi-) (KS0 -> pi+ pi-)]CC',
+                                          'pi2' : '[J/psi(1S) -> (KS0 -> pi+ ^pi-) (KS0 -> pi+ pi-)]CC',
+                                          'pi3' : '[J/psi(1S) -> (KS0 -> pi+ pi-) (KS0 -> ^pi+ pi-)]CC',
+                                          'pi4' : '[J/psi(1S) -> (KS0 -> pi+ pi-) (KS0 -> pi+ ^pi-)]CC',
                                           })
 
 
@@ -296,7 +291,7 @@ if dataSample.isMC: # Kill banks with old stripping
     
     # Select my line   
     MyStream = StrippingStream("MyStream")
-    MyLines = [ 'Stripping'+line.lineName for line in [Phi2KsKs_line] ]
+    MyLines = [ 'Stripping'+line.lineName for line in [JPsi2KsKs_line] ]
     
     for stream in streams: 
         for line in stream.lines:
@@ -315,32 +310,28 @@ if dataSample.isMC: # Kill banks with old stripping
     DaVinci().appendToMainSequence( [ eventNodeKiller, sc.sequence() ] )
 
     # MC Tuples
-    addMCTuple('phi2KsKs', '[phi(1020) -> ^(KS0 -> ^pi+ ^pi-) ^(KS0 -> ^pi+ ^pi-)]CC')
-    addMCTuple('phi2KsKl', '[phi(1020) -> ^(KS0 -> ^pi+ ^pi-) ^(KL0 -> ^pi+ ^pi-)]CC')
-    # if 'minbias' in dataSample.name:
-    #     addMCTuple('phi2KK', '[phi(1020) -> ^K+ ^K-]CC')
-    #     addMCTuple('phi2K0K0', '[phi(1020) -> ^KS0 ^KL0]CC')
-    #     # addMCTuple('KsKs', '[(KS0 -> ^pi+ ^pi-)cc && (KS0 -> ^pi+ ^pi-)cc]')
-    #     addMCTuple('Ks', '[KS0 -> ^pi+ ^pi-]CC')
+    addMCTuple('JPsi2KsKs', '[J/psi(1S) -> ^(KS0 -> ^pi+ ^pi-) ^(KS0 -> ^pi+ ^pi-)]CC')
+    addMCTuple('JPsi2KsKl', '[J/psi(1S) -> ^(KS0 -> ^pi+ ^pi-) ^(KL0 -> ^pi+ ^pi-)]CC')
+
 
     from Configurables import PrintMCTree, PrintMCDecayTreeTool
-    mctree = PrintMCTree("PrintTruePhi")
+    mctree = PrintMCTree("PrintTrueJPsi")
     mctree.addTool(PrintMCDecayTreeTool, name = "PrintMC")
     mctree.PrintMC.Information = "Name"
-    mctree.ParticleNames = [ "phi(1020)", 'KS0' ]
+    mctree.ParticleNames = [ "J/psi(1S)", 'KS0' ]
     mctree.Depth = 2
    
     
 ###########################################################
 
-for strLine in [Phi2KsKs_line]:
+for strLine in [JPsi2KsKs_line]:
     strLine.select()
     strLine.makeTuple()
 
     DaVinci().appendToMainSequence( [ strLine.sequence.sequence() ])
 
 
-DaVinci().HistogramFile = "DVHistos.root"
+DaVinci().HistogramFile = "HistogramFile.root"
 DaVinci().TupleFile = dataSample.outputNtupleName
 
 # ###################################################

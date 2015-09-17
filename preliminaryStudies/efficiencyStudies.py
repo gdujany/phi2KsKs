@@ -17,7 +17,7 @@ if not os.listdir(eos_root):
     raise OSError('EOS not mounted, please type:\n eosmount '+eos_root)
 
 #store_dir = os.path.join(eos_root, 'lhcb/user/g/gdujany/phi2KsKs/')
-store_dir = '~/phi2KsKs/files/'
+store_dir = '/afs/cern.ch/work/s/sbartkow/files/'
 
 inFiles = {}
 #inFiles['data2012'] = r.TFile(os.path.join(store_dir, 'data2012.root'))

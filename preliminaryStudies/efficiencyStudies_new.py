@@ -19,9 +19,9 @@ store_dir_s = '/afs/cern.ch/work/s/sbartkow/files/'
 
 inFiles = {}
 inFiles['data2012_Ds'] = r.TFile(os.path.join(store_dir_s, 'Ds_Phi2KsKs_2012.root'))
-inFiles['data2012_incl'] = r.TFile(os.path.join(store_dir_s, 'data2012_old.root'))
-inFiles['phi2KsKs_incl'] = r.TFile(os.path.join(store_dir_s, 'phi2KsKs_incl.root'))
-inFiles['phi2KsKs_Ds'] = r.TFile(os.path.join(store_dir_s, 'Ds_Phi2KsKs_Ds.root'))# 'Ds_Phi2KsKs_Ds.root'))
+inFiles['data2012_incl'] = r.TFile(os.path.join(store_dir_g, '../phi2KsKs_noTrigger/data2012.root'))
+inFiles['phi2KsKs_incl'] = r.TFile(os.path.join(store_dir_g, 'phi2KsKs_incl.root'))
+inFiles['phi2KsKs_Ds'] = r.TFile(os.path.join(store_dir_s, 'Ds_Phi2KsKs_Ds_fulltrigger.root'))# 'Ds_Phi2KsKs_Ds.root'))
 inFiles['minbias_incl'] = r.TFile(os.path.join(store_dir_s, 'Phi2KsKs_MBcomb.root'))
 inFiles['minbias_Ds'] = r.TFile(os.path.join(store_dir_s, 'Ds_Phi2KsKs_MBcomb.root'))
 
@@ -215,7 +215,7 @@ for key, inFile in inFiles.items():
 
     
     selection = ''
-    selection +='phi_M>1010&&phi_M<1030' 
+    selection +='abs(1019.445-phi_M) < .2' 
     if(not 'incl' in key):
         selection += ' && Ds_M > 1955 && Ds_M < 1985'
         selection += '&& phi_IPCHI2_OWNPV >=15'#'&& phi_IPCHI2_OWNPV >=50'

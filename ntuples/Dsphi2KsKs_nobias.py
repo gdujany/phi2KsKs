@@ -177,46 +177,6 @@ tuple.Branches = {'Ds' : '[D_s+ -> (phi(1020) -> (KS0 -> pi+ pi-) (KS0 -> pi+ pi
 
 tuple.addBranches(tuple.Branches)
 
-dictionary = {"VX_1_1_1": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VX),1),1),1), True, strings('KS0') )", # pi1
-              "VX_1_1_2": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VX),2),1),1), True, strings('KS0') )", # pi2
-              "VX_1_2_1": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VX),1),2),1), True, strings('KS0') )", # pi3
-              "VX_1_2_2": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VX),2),2),1), True, strings('KS0') )", # pi4
-              "VX_1_1": "DTF_FUN(CHILD(CHILD(VFASPF(VX),1),1), True, strings('KS0') )", # Ks1
-              "VX_1_2": "DTF_FUN(CHILD(CHILD(VFASPF(VX),2),1), True, strings('KS0') )", # Ks2
-              "VX_1"  : "DTF_FUN(CHILD(VFASPF(VX),1), True, strings('KS0') )", #phi
-              "VX_2"  : "DTF_FUN(CHILD(VFASPF(VX),2), True, strings('KS0') )", #pi+/-
-              "VX_0"  : "DTF_FUN(VFASPF(VX), True, strings('KS0') )", #Ds
-              "VY_1_1_1": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VY),1),1),1), True, strings('KS0') )", # pi1
-              "VY_1_1_2": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VY),2),1),1), True, strings('KS0') )", # pi2
-              "VY_1_2_1": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VY),1),2),1), True, strings('KS0') )", # pi3
-              "VY_1_2_2": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VY),2),2),1), True, strings('KS0') )", # pi4
-              "VY_1_1": "DTF_FUN(CHILD(CHILD(VFASPF(VY),1),1), True, strings('KS0') )", # Ks1
-              "VY_1_2": "DTF_FUN(CHILD(CHILD(VFASPF(VY),2),1), True, strings('KS0') )", # Ks2
-              "VY_1"  : "DTF_FUN(CHILD(VFASPF(VY),1), True, strings('KS0') )", #phi
-              "VY_2"  : "DTF_FUN(CHILD(VFASPF(VY),2), True, strings('KS0') )", #pi+/-
-              "VY_0"  : "DTF_FUN(VFASPF(VY), True, strings('KS0') )", #Ds
-              "VZ_1_1_1": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VZ),1),1),1), True, strings('KS0') )", # pi1
-              "VZ_1_1_2": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VZ),2),1),1), True, strings('KS0') )", # pi2
-              "VZ_1_2_1": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VZ),1),2),1), True, strings('KS0') )", # pi3
-              "VZ_1_2_2": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VZ),2),2),1), True, strings('KS0') )", # pi4
-              "VZ_1_1": "DTF_FUN(CHILD(CHILD(VFASPF(VZ),1),1), True, strings('KS0') )", # Ks1
-              "VZ_1_2": "DTF_FUN(CHILD(CHILD(VFASPF(VZ),2),1), True, strings('KS0') )", # Ks2
-              "VZ_1"  : "DTF_FUN(CHILD(VFASPF(VZ),1), True, strings('KS0') )", #phi
-              "VZ_2"  : "DTF_FUN(CHILD(VFASPF(VZ),2), True, strings('KS0') )", #pi+/-
-              "VZ_0"  : "DTF_FUN(VFASPF(VZ), True, strings('KS0') )", #Ds
-              "M_1" : "DTF_FUN ( CHILD(CHILD(M,1),1), True, 'KS0' )",
-              "M_2" : "DTF_FUN ( CHILD(CHILD(M,2),1), True, 'KS0' )",
-              "P_1_1_1": "DTF_FUN ( CHILD(CHILD(CHILD(P,1),1),1), True, 'KS0' )",
-              "P_1_1_2": "DTF_FUN ( CHILD(CHILD(CHILD(P,2),1),1), True, 'KS0' )",
-              "P_1_2_1": "DTF_FUN ( CHILD(CHILD(CHILD(P,1),2),1), True, 'KS0' )",
-              "P_1_2_2": "DTF_FUN ( CHILD(CHILD(CHILD(P,2),2),1), True, 'KS0' )",
-              "P_1_1": "DTF_FUN ( CHILD(CHILD(P,1),1), True, 'KS0' )",
-              "P_1_2": "DTF_FUN ( CHILD(CHILD(P,2),1), True, 'KS0' )",
-              "P_1"  : "DTF_FUN ( CHILD(P,1), True, 'KS0' )",
-              "P_2"  : "DTF_FUN ( CHILD(P,2), True, 'KS0' )",
-              "P_0"  : "DTF_FUN ( P, True, 'KS0' )",
-              }
-
 
 tuple.Ds.addTupleTool("LoKi::Hybrid::TupleTool/LoKi_Ds")
 tuple.Ds.LoKi_Ds.Variables =  {
@@ -239,55 +199,6 @@ tuple.Ds.LoKi_Ds.Variables =  {
             "DTF_NDOF_noPV"   : "DTF_NDOF( False, 'KS0' )",
             "DTF_M_Ds_noPV"      : "DTF_FUN ( M, False, 'KS0' )",
             "DTF_M_Phi_noPV"    : "DTF_FUN ( CHILD(M,1), False, 'KS0' )",
-
-            "DTF_TAU_Ks1" : "sqrt(({VX_1_1}-{VX_1})*({VX_1_1}-{VX_1})+({VY_1_1}-{VY_1})*({VY_1_1}-{VY_1})+({VZ_1_1}-{VZ_1})*({VZ_1_1}-{VZ_1}))*{M_1}/{P_1_1}".format(**dictionary),
-            "DTF_TAU_Ks2" : "sqrt(({VX_1_2}-{VX_1})*({VX_1_2}-{VX_1})+({VY_1_2}-{VY_1})*({VY_1_2}-{VY_1})+({VZ_1_2}-{VZ_1})*({VZ_1_2}-{VZ_1}))*{M_2}/{P_1_2}".format(**dictionary),
-            "DTF_VX_pi1" : "{VX_1_1_1}".format(**dictionary),
-            "DTF_VY_pi1" : "{VY_1_1_1}".format(**dictionary),
-            "DTF_VZ_pi1" : "{VZ_1_1_1}".format(**dictionary),
-            "DTF_P_pi1"  : "{P_1_1_1}".format(**dictionary),
-            "DTF_VX_pi2" : "{VX_1_1_2}".format(**dictionary),
-            "DTF_VY_pi2" : "{VY_1_1_2}".format(**dictionary),
-            "DTF_VZ_pi2" : "{VZ_1_1_2}".format(**dictionary),
-            "DTF_P_pi2"  : "{P_1_1_2}".format(**dictionary),
-            "DTF_VX_pi3" : "{VX_1_2_1}".format(**dictionary),
-            "DTF_VY_pi3" : "{VY_1_2_1}".format(**dictionary),
-            "DTF_VZ_pi3" : "{VZ_1_2_1}".format(**dictionary),
-            "DTF_P_pi3"  : "{P_1_2_1}".format(**dictionary),
-            "DTF_VX_pi4" : "{VX_1_2_2}".format(**dictionary),
-            "DTF_VY_pi4" : "{VY_1_2_2}".format(**dictionary),
-            "DTF_VZ_pi4" : "{VZ_1_2_2}".format(**dictionary),
-            "DTF_P_pi4"  : "{P_1_2_2}".format(**dictionary),
-            "DTF_VX_Ks1" : "{VX_1_1}".format(**dictionary),
-            "DTF_VY_Ks1" : "{VY_1_1}".format(**dictionary),
-            "DTF_VZ_Ks1" : "{VZ_1_1}".format(**dictionary),
-            "DTF_P_Ks1"  : "{P_1_1}".format(**dictionary),
-            "DTF_VX_Ks2" : "{VX_1_2}".format(**dictionary),
-            "DTF_VY_Ks2" : "{VY_1_2}".format(**dictionary),
-            "DTF_VZ_Ks2" : "{VZ_1_2}".format(**dictionary),
-            "DTF_P_Ks2"  : "{P_1_2}".format(**dictionary),
-            "DTF_VX_phi" : "{VX_1}".format(**dictionary),
-            "DTF_VY_phi" : "{VY_1}".format(**dictionary),
-            "DTF_VZ_phi" : "{VZ_1}".format(**dictionary),
-            "DTF_P_phi"  : "{P_1}".format(**dictionary),
-            "DTF_VX_Ds" : "{VX_0}".format(**dictionary),
-            "DTF_VY_Ds" : "{VY_0}".format(**dictionary),
-            "DTF_VZ_Ds" : "{VZ_0}".format(**dictionary),
-            "DTF_P_Ds"  : "{P_0}".format(**dictionary),
-            "DTF_VX_pis" : "{VX_2}".format(**dictionary),
-            "DTF_VY_pis" : "{VY_2}".format(**dictionary),
-            "DTF_VZ_pis" : "{VZ_2}".format(**dictionary),
-            "DTF_P_pis"  : "{P_2}".format(**dictionary),
-
-            # "DTF_CTAU_Ks1"    : "DTF_CTAU(1, True, strings('KS0') )",
-            # "DTF_CTAU_Ks2"    : "DTF_CTAU(2, True, strings('KS0') )",
-            # "DTF_CTAU_Ks1"    : "DTF_CTAU(1, False, strings('KS0') )",
-            # "DTF_CTAU_Ks2"    : "DTF_CTAU(2, False, strings('KS0') )",
-            # "DTF_DT_PV" : "DTF_CTAU(1, True, strings('KS0') )- DTF_CTAU(2, True, strings('KS0') )" ,
-            # "DTF_ADT_PV" : "abs(DTF_CTAU(1, True, strings('KS0') )- DTF_CTAU(2, True, strings('KS0') ))",
-            # "DTF_DT" : "DTF_CTAU(1, False, strings('KS0') )- DTF_CTAU(2, False, strings('KS0') )" ,
-            # "DTF_ADT" : "abs(DTF_CTAU(1, False, strings('KS0') )- DTF_CTAU(2, False, strings('KS0') ))"
-
          
             }
 
@@ -305,10 +216,15 @@ tuple.phi.LoKi_phi.Variables =  {
             "BPVIPCHI2" : "BPVIPCHI2()",
             "ADOCA" : "DOCA(1,2)",
             "ADOCACHI2" : "DOCACHI2(1,2)", 
-            "DTF_CTAU_Ks1"    : "DTF_CTAU(1, True, strings('KS0') )",
-            "DTF_CTAU_Ks2"    : "DTF_CTAU(2, True, strings('KS0') )",
 
-
+            "DTF_CTAU_Ks1_PV"    : "DTF_CTAU(1, True, strings('KS0') )",
+            "DTF_CTAU_Ks2_PV"    : "DTF_CTAU(2, True, strings('KS0') )",
+            "DTF_CTAU_Ks1"    : "DTF_CTAU(1, False, strings('KS0') )",
+            "DTF_CTAU_Ks2"    : "DTF_CTAU(2, False, strings('KS0') )",
+            "DTF_DT_PV" : "DTF_CTAU(1, True, strings('KS0') )- DTF_CTAU(2, True, strings('KS0') )" ,
+            "DTF_ADT_PV" : "abs(DTF_CTAU(1, True, strings('KS0') )- DTF_CTAU(2, True, strings('KS0') ))",
+            "DTF_DT" : "DTF_CTAU(1, False, strings('KS0') )- DTF_CTAU(2, False, strings('KS0') )" ,
+            "DTF_ADT" : "abs(DTF_CTAU(1, False, strings('KS0') )- DTF_CTAU(2, False, strings('KS0') ))
             }
 
 
@@ -415,7 +331,7 @@ from Configurables import DaVinci
 
 #Name of tuple file you want to write out.
 DaVinci().TupleFile = "Phi2KsKs.root"
-DaVinci().EvtMax = -1
+DaVinci().EvtMax = 10000
 DaVinci().DataType = '2012'
 DaVinci().Simulation = isMC
 

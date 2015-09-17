@@ -18,40 +18,82 @@ from GaudiKernel.SystemOfUnits import MeV, GeV, mrad, picosecond
 
 #confdict
 config = {
-      "prescale_PhiToKK" : 0.001,
-      "prescale_PhiToKsKs" : 1.0,
-      "prescale_PhiToMuMu" : 0.01,
-      "prescale_JPsiToKK" : 0.01,
-      "prescale_JPsiToKsKs" : 1.0,
-      "prescale_D0ToKsKs" : 1.0,
-      "prescale_EtaCToLL" : 1.0,
+    "prescale_PhiToKK" : 0.001,
+    "prescale_PhiToKsKs" : 1.0,
+    "prescale_PhiToMuMu" : 0.01,
+    "prescale_DToPhiPiKsKs" : 1.0,
+    "prescale_JPsiToKK" : 0.01,
+    "prescale_JPsiToKsKs" : 1.0,
+    "prescale_D0ToKsKs" : 1.0,
+    "prescale_EtaCToLL" : 1.0,
     
-      "GEC_nLongTrk" : 250,
-      "DoDTF" : True,
-      "GHOSTPROB_MAX" : 0.35, #adimensional
-     
-      "KS_LL_PTMIN" : 200, #MeV
-      "KS_LL_MASS_WINDOW" : 50, #MeV
-      "KS_LL_FD_MIN" : 10.0, #mm
-      "KS_LL_FDCHI2_MIN" : 100, #adimensional
-      "KS_LL_VCHI2NDOF_MAX" : 10,#adimensional
-      "KS_LL_DIRA_MIN" : 0.9999, #adimensional
-     
-      "KS_DD_PTMIN" : 200, #MeV
-      "KS_DD_MASS_WINDOW" : 50, #MeV
-      "KS_DD_FD_MIN" : 10.0, #mm
-      "KS_DD_FDCHI2_MIN" : 100, #adimensional
-      "KS_DD_VCHI2NDOF_MAX" : 10,#adimensional
-      "KS_DD_DIRA_MIN" : 0.999, #adimensional
-     
-      "Phi_PT_MIN" : 400, # MeV
-      "Phi_DOCACHI2_MAX" : 20, #adimensional
-      "Phi_VCHI2NDOF_MAX" : 6, #adimensional
-      "Phi_MASS_RANGE" : 70 # MeV
+    "GEC_nLongTrk" : 250,
+    "DoDTF" : True,
+    "GHOSTPROB_MAX" : 0.35, #adimensional
+    
+    "K_PTMIN" : 200, #MeV
+    "K_PIDK_MIN" : 7, #adimensional
+    "K_IPCHI2_MAX" : 9, #adimensional
+    
+    "Mu_PTMIN" : 200, #MeV
+    "Mu_PIDmu_MIN" : 0, #adimensional
+    "Mu_IPCHI2_MAX" : 9, #adimensional
+    
+    "Pi_PTMIN" : 250, #MeV
+    "Pi_IPCHI2_MAX" : 300, #adimensional
+    
+    "KS_LL_PTMIN" : 500, #MeV #Ok, could be 500
+    "KS_LL_MASS_WINDOW" : 20, #MeV #Ok, could be 20/30
+    "KS_LL_FD_MIN" : 10, #mm #Better as 5
+    "KS_LL_FDCHI2_MIN" : 50, #adimensional #Better as 25
+    "KS_LL_VCHI2NDOF_MAX" : 10,#adimensional #Better as 25
+    "KS_LL_DIRA_MIN" : 0.9999, #adimensional #Better as 0.999
+    
+    "KS_DD_PTMIN" : 500, #MeV #Ok, could be 500
+    "KS_DD_MASS_WINDOW" : 20, #MeV #Ok, could be 20/30
+    "KS_DD_FD_MIN" : 10, #mm #Better as 5
+    "KS_DD_FDCHI2_MIN" : 50, #adimensional #Better as 25
+    "KS_DD_VCHI2NDOF_MAX" : 10,#adimensional #Better as 25
+    "KS_DD_DIRA_MIN" : 0.9999, #adimensional #Ok
+    
+    "Lambda_PTMIN" : 200, #MeV
+    "Lambda_MASS_WINDOW" : 50, #MeV
+    "Lambda_FD_MIN" : 10.0, #mm
+    "Lambda_FDCHI2_MIN" : 100, #adimensional
+    "Lambda_VCHI2NDOF_MAX" : 4,#adimensional
+    "Lambda_DIRA_MIN" : 0.999, #adimensional
+    
+    "Phi_MASS_MAX" : 1070, # MeV #Ok
+    "Phi_PT_MIN" : 1000, # MeV #Ok, could be 1000
+    "Phi_DOCACHI2_MAX" : 100, #adimensional # Better as 100
+    "Phi_VCHI2NDOF_MAX" : 10, #adimensional #Better as 50
+    "Phi_IPCHI2_MAX" : 100, #adimensional #Better as 500
 
+    "D0_MASS_WIN" : 80, # MeV
+    "D0_PT_MIN" : 400, # MeV
+    "D0_DOCACHI2_MAX" : 20, #adimensional
+    "D0_VCHI2NDOF_MAX" : 6, #adimensional
+    "D0_IPCHI2_MAX" : 9, #adimensional
 
+    "JPsi_MASS_WIN" : 120, # MeV
+    "JPsi_PT_MIN" : 500, # MeV
+    "JPsi_DOCACHI2_MAX" : 20, #adimensional
+    "JPsi_VCHI2NDOF_MAX" : 6, #adimensional
+    "JPsi_IPCHI2_MAX" : 9, #adimensional
+    
+    "etaC_MASS_WIN" : 200, # MeV
+    "etaC_PT_MIN" : 400, # MeV
+    "etaC_DOCACHI2_MAX" : 20, #adimensional
+    "etaC_VCHI2NDOF_MAX" : 6, #adimensional
+    "etaC_IPCHI2_MAX" : 9, #adimensional
+    
+    "Dp_MASS_WIN" : 100, # MeV #Ok, could be 100
+    "Dp_PT_MIN" : 800, # MeV #Ok, could be 1000
+    "Dp_DOCACHI2_MAX" : 100, # Better as 100
+    "Dp_VCHI2NDOF_MAX" : 10, #adimensional #Better as 50
+    "Dp_IPCHI2_MAX" : 100 #adimensional #Better as 500
+    }   
 
-      } 
 
 
 
@@ -89,10 +131,9 @@ Ks = MergedSelection("Ks", RequiredSelections = [KsLL, KsDD])
 Phi = CombineParticles("Phi2KsKs")
 Phi.DecayDescriptor = 'phi(1020) -> KS0 KS0'
 #Cuts from the stripping line
-Phi.CombinationCut =  "( (ACHILDCUT(CHILDCUT(ISLONG,1),1)) | (ACHILDCUT(CHILDCUT(ISLONG,1),2)) ) &  (APT > %(Phi_PT_MIN)s *MeV) & (ADAMASS('phi(1020)')<%(Phi_MASS_RANGE)s +30*MeV) & (ACUTDOCACHI2(%(Phi_DOCACHI2_MAX)s,''))" %config
-Phi.MotherCut = "(ADMASS('phi(1020)')<%(Phi_MASS_RANGE)s*MeV) & (VFASPF(VCHI2/VDOF) < %(Phi_VCHI2NDOF_MAX)s)" %config
+Phi.CombinationCut =  "( (ACHILDCUT(CHILDCUT(ISLONG,1),1)) | (ACHILDCUT(CHILDCUT(ISLONG,1),2)) ) & (APT > %(Phi_PT_MIN)s *MeV) & (AM < %(Phi_MASS_MAX)s + 30*MeV) & (ACUTDOCACHI2(%(Phi_DOCACHI2_MAX)s,''))" %config
+Phi.MotherCut = "(M < %(Phi_MASS_MAX)s *MeV) & (VFASPF(VCHI2/VDOF) < %(Phi_VCHI2NDOF_MAX)s) & (MIPCHI2DV(PRIMARY) < %(Phi_IPCHI2_MAX)s)" %config
 
- 
 Phi_Sel = Selection(name = "Sel_Phi2KsKs",
                 Algorithm = Phi,
                 RequiredSelections = [Ks])#[StdLooseKsDD,StdLooseKsLL])
@@ -102,10 +143,14 @@ Phi_Sel = Selection(name = "Sel_Phi2KsKs",
 Ds = CombineParticles("Ds2PhiPi")
 
 Ds.DecayDescriptor = '[D_s+ -> phi(1020) pi+]cc'
-Ds.DaughtersCuts = { '' : 'ALL' , 'phi(1020)' : '(ALL)' , 'pi+' : '(PT >150 *MeV) & (BPVIPCHI2() > 1.0) & ( TRCHI2DOF < 5 )& (TRGHOSTPROB<0.3)'}
-Ds.CombinationCut =  "(ADAMASS('D_s+')<180*MeV)"
-Ds.MotherCut = "(VFASPF(VCHI2/VDOF) < 25.0)& (((BPVVDCHI2 > 16.0)|(BPVLTIME() > 0.150 * picosecond)))"#& (BPVDIRA > 35.0*mrad)"
-Ds.MotherCut += "&(ADMASS('D_s+')<150*MeV)" %config
+Ds.CombinationCut =  " (APT > %(Dp_PT_MIN)s *MeV) & (ADAMASS(1920*MeV) < %(Dp_MASS_WIN)s + 30*MeV) & (ACUTDOCACHI2(%(Dp_DOCACHI2_MAX)s,''))" %config#"( (ACHILDCUT(CHILDCUT(ISLONG,1),1)) | (ACHILDCUT(CHILDCUT(ISLONG,1),2)) ) &"
+Ds.MotherCut = "(DMASS(1920*MeV) < %(Dp_MASS_WIN)s *MeV) & (VFASPF(VCHI2/VDOF) < %(Dp_VCHI2NDOF_MAX)s) & (MIPCHI2DV(PRIMARY) < %(Dp_IPCHI2_MAX)s)" %config
+
+# Ds.DaughtersCuts = { '' : 'ALL' , 'phi(1020)' : '(ALL)' , 'pi+' : '(PT >150 *MeV) & (BPVIPCHI2() > 1.0) & ( TRCHI2DOF < 5 )& (TRGHOSTPROB<0.3)'}
+# Ds.CombinationCut =  "(ADAMASS('D_s+')<180*MeV)"
+# Ds.MotherCut = "(VFASPF(VCHI2/VDOF) < 25.0)& (((BPVVDCHI2 > 16.0)|(BPVLTIME() > 0.150 * picosecond)))"#& (BPVDIRA > 35.0*mrad)"
+# Ds.MotherCut += "&(ADMASS('D_s+')<150*MeV)" %config
+
 
 
 Ds_Sel = Selection(name = "Sel_Ds2PhiPi",
@@ -125,7 +170,7 @@ Ds_sequence = SelectionSequence('SeqDs2PhiPi',
 
 
 from Configurables import FitDecayTrees, DecayTreeTuple, TupleToolDecayTreeFitter, TupleToolDecay, TupleToolTrigger, TupleToolTISTOS, TupleToolPropertime, PropertimeFitter, TupleToolKinematic, TupleToolGeometry, TupleToolEventInfo, TupleToolPrimaries, TupleToolPid, TupleToolTrackInfo, TupleToolRecoStats, TupleToolMCTruth,  LoKi__Hybrid__TupleTool, LoKi__Hybrid__EvtTupleTool
-from Configurables import LoKi__LifetimeFitter
+
 
 tuple = DecayTreeTuple("TuplePhi2KsKs")
 
@@ -177,46 +222,6 @@ tuple.Branches = {'Ds' : '[D_s+ -> (phi(1020) -> (KS0 -> pi+ pi-) (KS0 -> pi+ pi
 
 tuple.addBranches(tuple.Branches)
 
-dictionary = {"VX_1_1_1": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VX),1),1),1), True, strings('KS0') )", # pi1
-              "VX_1_1_2": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VX),2),1),1), True, strings('KS0') )", # pi2
-              "VX_1_2_1": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VX),1),2),1), True, strings('KS0') )", # pi3
-              "VX_1_2_2": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VX),2),2),1), True, strings('KS0') )", # pi4
-              "VX_1_1": "DTF_FUN(CHILD(CHILD(VFASPF(VX),1),1), True, strings('KS0') )", # Ks1
-              "VX_1_2": "DTF_FUN(CHILD(CHILD(VFASPF(VX),2),1), True, strings('KS0') )", # Ks2
-              "VX_1"  : "DTF_FUN(CHILD(VFASPF(VX),1), True, strings('KS0') )", #phi
-              "VX_2"  : "DTF_FUN(CHILD(VFASPF(VX),2), True, strings('KS0') )", #pi+/-
-              "VX_0"  : "DTF_FUN(VFASPF(VX), True, strings('KS0') )", #Ds
-              "VY_1_1_1": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VY),1),1),1), True, strings('KS0') )", # pi1
-              "VY_1_1_2": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VY),2),1),1), True, strings('KS0') )", # pi2
-              "VY_1_2_1": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VY),1),2),1), True, strings('KS0') )", # pi3
-              "VY_1_2_2": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VY),2),2),1), True, strings('KS0') )", # pi4
-              "VY_1_1": "DTF_FUN(CHILD(CHILD(VFASPF(VY),1),1), True, strings('KS0') )", # Ks1
-              "VY_1_2": "DTF_FUN(CHILD(CHILD(VFASPF(VY),2),1), True, strings('KS0') )", # Ks2
-              "VY_1"  : "DTF_FUN(CHILD(VFASPF(VY),1), True, strings('KS0') )", #phi
-              "VY_2"  : "DTF_FUN(CHILD(VFASPF(VY),2), True, strings('KS0') )", #pi+/-
-              "VY_0"  : "DTF_FUN(VFASPF(VY), True, strings('KS0') )", #Ds
-              "VZ_1_1_1": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VZ),1),1),1), True, strings('KS0') )", # pi1
-              "VZ_1_1_2": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VZ),2),1),1), True, strings('KS0') )", # pi2
-              "VZ_1_2_1": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VZ),1),2),1), True, strings('KS0') )", # pi3
-              "VZ_1_2_2": "DTF_FUN(CHILD(CHILD(CHILD(VFASPF(VZ),2),2),1), True, strings('KS0') )", # pi4
-              "VZ_1_1": "DTF_FUN(CHILD(CHILD(VFASPF(VZ),1),1), True, strings('KS0') )", # Ks1
-              "VZ_1_2": "DTF_FUN(CHILD(CHILD(VFASPF(VZ),2),1), True, strings('KS0') )", # Ks2
-              "VZ_1"  : "DTF_FUN(CHILD(VFASPF(VZ),1), True, strings('KS0') )", #phi
-              "VZ_2"  : "DTF_FUN(CHILD(VFASPF(VZ),2), True, strings('KS0') )", #pi+/-
-              "VZ_0"  : "DTF_FUN(VFASPF(VZ), True, strings('KS0') )", #Ds
-              "M_1" : "DTF_FUN ( CHILD(CHILD(M,1),1), True, 'KS0' )",
-              "M_2" : "DTF_FUN ( CHILD(CHILD(M,2),1), True, 'KS0' )",
-              "P_1_1_1": "DTF_FUN ( CHILD(CHILD(CHILD(P,1),1),1), True, 'KS0' )",
-              "P_1_1_2": "DTF_FUN ( CHILD(CHILD(CHILD(P,2),1),1), True, 'KS0' )",
-              "P_1_2_1": "DTF_FUN ( CHILD(CHILD(CHILD(P,1),2),1), True, 'KS0' )",
-              "P_1_2_2": "DTF_FUN ( CHILD(CHILD(CHILD(P,2),2),1), True, 'KS0' )",
-              "P_1_1": "DTF_FUN ( CHILD(CHILD(P,1),1), True, 'KS0' )",
-              "P_1_2": "DTF_FUN ( CHILD(CHILD(P,2),1), True, 'KS0' )",
-              "P_1"  : "DTF_FUN ( CHILD(P,1), True, 'KS0' )",
-              "P_2"  : "DTF_FUN ( CHILD(P,2), True, 'KS0' )",
-              "P_0"  : "DTF_FUN ( P, True, 'KS0' )",
-              }
-
 
 tuple.Ds.addTupleTool("LoKi::Hybrid::TupleTool/LoKi_Ds")
 tuple.Ds.LoKi_Ds.Variables =  {
@@ -239,59 +244,8 @@ tuple.Ds.LoKi_Ds.Variables =  {
             "DTF_NDOF_noPV"   : "DTF_NDOF( False, 'KS0' )",
             "DTF_M_Ds_noPV"      : "DTF_FUN ( M, False, 'KS0' )",
             "DTF_M_Phi_noPV"    : "DTF_FUN ( CHILD(M,1), False, 'KS0' )",
-
-            "DTF_TAU_Ks1" : "sqrt(({VX_1_1}-{VX_1})*({VX_1_1}-{VX_1})+({VY_1_1}-{VY_1})*({VY_1_1}-{VY_1})+({VZ_1_1}-{VZ_1})*({VZ_1_1}-{VZ_1}))*{M_1}/{P_1_1}".format(**dictionary),
-            "DTF_TAU_Ks2" : "sqrt(({VX_1_2}-{VX_1})*({VX_1_2}-{VX_1})+({VY_1_2}-{VY_1})*({VY_1_2}-{VY_1})+({VZ_1_2}-{VZ_1})*({VZ_1_2}-{VZ_1}))*{M_2}/{P_1_2}".format(**dictionary),
-            "DTF_VX_pi1" : "{VX_1_1_1}".format(**dictionary),
-            "DTF_VY_pi1" : "{VY_1_1_1}".format(**dictionary),
-            "DTF_VZ_pi1" : "{VZ_1_1_1}".format(**dictionary),
-            "DTF_P_pi1"  : "{P_1_1_1}".format(**dictionary),
-            "DTF_VX_pi2" : "{VX_1_1_2}".format(**dictionary),
-            "DTF_VY_pi2" : "{VY_1_1_2}".format(**dictionary),
-            "DTF_VZ_pi2" : "{VZ_1_1_2}".format(**dictionary),
-            "DTF_P_pi2"  : "{P_1_1_2}".format(**dictionary),
-            "DTF_VX_pi3" : "{VX_1_2_1}".format(**dictionary),
-            "DTF_VY_pi3" : "{VY_1_2_1}".format(**dictionary),
-            "DTF_VZ_pi3" : "{VZ_1_2_1}".format(**dictionary),
-            "DTF_P_pi3"  : "{P_1_2_1}".format(**dictionary),
-            "DTF_VX_pi4" : "{VX_1_2_2}".format(**dictionary),
-            "DTF_VY_pi4" : "{VY_1_2_2}".format(**dictionary),
-            "DTF_VZ_pi4" : "{VZ_1_2_2}".format(**dictionary),
-            "DTF_P_pi4"  : "{P_1_2_2}".format(**dictionary),
-            "DTF_VX_Ks1" : "{VX_1_1}".format(**dictionary),
-            "DTF_VY_Ks1" : "{VY_1_1}".format(**dictionary),
-            "DTF_VZ_Ks1" : "{VZ_1_1}".format(**dictionary),
-            "DTF_P_Ks1"  : "{P_1_1}".format(**dictionary),
-            "DTF_VX_Ks2" : "{VX_1_2}".format(**dictionary),
-            "DTF_VY_Ks2" : "{VY_1_2}".format(**dictionary),
-            "DTF_VZ_Ks2" : "{VZ_1_2}".format(**dictionary),
-            "DTF_P_Ks2"  : "{P_1_2}".format(**dictionary),
-            "DTF_VX_phi" : "{VX_1}".format(**dictionary),
-            "DTF_VY_phi" : "{VY_1}".format(**dictionary),
-            "DTF_VZ_phi" : "{VZ_1}".format(**dictionary),
-            "DTF_P_phi"  : "{P_1}".format(**dictionary),
-            "DTF_VX_Ds" : "{VX_0}".format(**dictionary),
-            "DTF_VY_Ds" : "{VY_0}".format(**dictionary),
-            "DTF_VZ_Ds" : "{VZ_0}".format(**dictionary),
-            "DTF_P_Ds"  : "{P_0}".format(**dictionary),
-            "DTF_VX_pis" : "{VX_2}".format(**dictionary),
-            "DTF_VY_pis" : "{VY_2}".format(**dictionary),
-            "DTF_VZ_pis" : "{VZ_2}".format(**dictionary),
-            "DTF_P_pis"  : "{P_2}".format(**dictionary),
-
-            # "DTF_CTAU_Ks1"    : "DTF_CTAU(1, True, strings('KS0') )",
-            # "DTF_CTAU_Ks2"    : "DTF_CTAU(2, True, strings('KS0') )",
-            # "DTF_CTAU_Ks1"    : "DTF_CTAU(1, False, strings('KS0') )",
-            # "DTF_CTAU_Ks2"    : "DTF_CTAU(2, False, strings('KS0') )",
-            # "DTF_DT_PV" : "DTF_CTAU(1, True, strings('KS0') )- DTF_CTAU(2, True, strings('KS0') )" ,
-            # "DTF_ADT_PV" : "abs(DTF_CTAU(1, True, strings('KS0') )- DTF_CTAU(2, True, strings('KS0') ))",
-            # "DTF_DT" : "DTF_CTAU(1, False, strings('KS0') )- DTF_CTAU(2, False, strings('KS0') )" ,
-            # "DTF_ADT" : "abs(DTF_CTAU(1, False, strings('KS0') )- DTF_CTAU(2, False, strings('KS0') ))"
-
          
             }
-
-
 
 
 tuple.phi.addTupleTool("LoKi::Hybrid::TupleTool/LoKi_phi")
@@ -305,13 +259,16 @@ tuple.phi.LoKi_phi.Variables =  {
             "BPVIPCHI2" : "BPVIPCHI2()",
             "ADOCA" : "DOCA(1,2)",
             "ADOCACHI2" : "DOCACHI2(1,2)", 
-            "DTF_CTAU_Ks1"    : "DTF_CTAU(1, True, strings('KS0') )",
-            "DTF_CTAU_Ks2"    : "DTF_CTAU(2, True, strings('KS0') )",
 
-
+            "DTF_CTAU_Ks1_PV"    : "DTF_CTAU(1, True, strings('KS0') )",
+            "DTF_CTAU_Ks2_PV"    : "DTF_CTAU(2, True, strings('KS0') )",
+            "DTF_CTAU_Ks1"    : "DTF_CTAU(1, False, strings('KS0') )",
+            "DTF_CTAU_Ks2"    : "DTF_CTAU(2, False, strings('KS0') )",
+            "DTF_DT_PV" : "DTF_CTAU(1, True, strings('KS0') )- DTF_CTAU(2, True, strings('KS0') )" ,
+            "DTF_ADT_PV" : "abs(DTF_CTAU(1, True, strings('KS0') )- DTF_CTAU(2, True, strings('KS0') ))",
+            "DTF_DT" : "DTF_CTAU(1, False, strings('KS0') )- DTF_CTAU(2, False, strings('KS0') )" ,
+            "DTF_ADT" : "abs(DTF_CTAU(1, False, strings('KS0') )- DTF_CTAU(2, False, strings('KS0') ))"
             }
-
-
 
 def mySharedConf_Ks(branch):
   atool=branch.addTupleTool('LoKi::Hybrid::TupleTool/LoKi_Ks')
@@ -414,7 +371,7 @@ Ds_sequence.sequence().Members += [tuple]
 from Configurables import DaVinci
 
 #Name of tuple file you want to write out.
-DaVinci().TupleFile = "Phi2KsKs.root"
+DaVinci().TupleFile = "Ds_Phi2KsKs.root"
 DaVinci().EvtMax = -1
 DaVinci().DataType = '2012'
 DaVinci().Simulation = isMC
