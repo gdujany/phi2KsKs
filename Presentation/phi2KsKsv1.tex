@@ -1,0 +1,396 @@
+\documentclass{beamer}
+\usepackage{beamerthemesplit,graphicx,wrapfig, slashed, subfigure,verbatim,hyperref,color,colortbl,tabularx}
+% \usepackage{graphicx,wrapfig, slashed, subfigure,verbatim,hyperref,color,colortbl,tabularx}
+\usepackage{amsmath,amssymb}
+\usepackage{helvet} %font helvetica
+\usepackage{siunitx}
+\usepackage{pdftricks}
+\usepackage{pstricks}
+\usepackage{beamerfoils}
+\usepackage{multicol}
+%\usepackage{babel}
+\usepackage{feynmp-auto}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{ulem}
+%\usepackage{epstopdf}
+\usepackage{color, colortbl}
+%\usepackage{biblatex}
+
+% \usetheme{Hannover}
+\useoutertheme{infolines2}
+%\font\ttfAkkuratLightOffice AkkuratLightOffice-Regular at10pt
+\colorlet{structure}{green!50!black}
+\definecolor{tugreen}{RGB}{132,184,24}
+\definecolor{tugrey}{RGB}{178,179,182}
+\definecolor{tured}{RGB}{205,0,47}
+\setbeamercolor{palette primary}{bg=tugreen,fg=black}
+\setbeamercolor{palette secondary}{bg=tugrey!50!tugreen,fg=black}
+\setbeamercolor{palette quaternary}{fg=black, bg=tugrey}
+\setbeamercolor{caption name}{fg=tugreen}
+\setbeamercolor{palette tertiary}{fg=black,bg=tugrey}
+
+
+\setbeamercolor{palette compare}{bg=white!80!tugreen,fg=black}
+\setbeamercolor{palette misc}{bg=white!80!tugreen,fg=black}
+\setbeamercolor{palette white}{bg=white!99!black,fg=black}
+
+\setbeamercolor{itemize item}{fg=tugreen}
+\setbeamercolor{itemize subitem}{fg=tugreen}
+\setbeamercolor{itemize subsubitem}{fg=tugreen}
+\setbeamercolor{enumerate item}{fg=tugreen}
+\setbeamertemplate{itemize item}[square]
+\setbeamercolor{titlelike}{fg=tugreen, bg=white}
+\setbeamertemplate{navigation symbols}{}
+
+\title{Measurement of CPT Invariance in $\phi\rightarrow K_sK_s$}
+\subtitle{A comparison of two approaches}
+
+\author{\underline{Sonja Bartkowski}, Lorenzo Capriotti, Giulio Dujany, \\Jonathan Harrison,  \& George Lafferty}
+%\institute[TU Dortmund]{
+%\scriptsize Technische Universität Dortmund\\
+%Lehrstuhl für Experimentelle Physik IV \\ 
+%}
+\date{August 17, 2015\\ \vspace{0.5cm}
+\vspace*{1cm}
+\begin{columns}
+        \column{.2\textwidth}  \centering \includegraphics[width=0.75\textwidth]{TitlePage/AN_cernlogo.pdf}
+	\column{.22\textwidth} \centering \includegraphics[width=0.8\textwidth]{lhcb_logo.pdf}
+	\column{.25\textwidth} \centering \includegraphics[width=\textwidth]{UniOfManchesterLogo.pdf}
+	        \column{.3\textwidth} \centering \includegraphics[width=\textwidth]{TitlePage/tud_logo_cmyk.pdf}
+\end{columns}}
+\MyLogo{\includegraphics[width=2.5cm]{lhcb_logo.pdf}} 
+
+\begin{document}
+
+\LogoOff
+\frame{\titlepage}
+
+\begin{frame}[fragile]
+\frametitle{Introduction \& Terminology}
+\vspace*{-.2cm}
+\begin{beamercolorbox}[rounded=true,shadow=true]{palette misc}
+\begin{itemize}
+\item Want to measure CPT invariance
+\item System of choice: $\phi \rightarrow K_S K_L$
+\begin{itemize}
+\item CPTV $\Rightarrow$ loss of coherence
+\end{itemize}
+\item Two possible approaches:
+\begin{itemize}
+\item inclusive $\phi$ production
+\item $\phi$ from decays $D_s \rightarrow \phi \pi$
+\end{itemize}
+\item Comparison of both approaches
+\end{itemize}
+\end{beamercolorbox}
+\begin{beamercolorbox}[rounded=true,shadow=true]{palette misc}
+\textbf{Signal:} $\phi \rightarrow K_S K_S \rightarrow \pi^+\pi^-\pi^+\pi^-$\\
+\textbf{SM background: }resulting from CPV, $\phi \rightarrow K_L K_S \rightarrow \pi^+\pi^-\pi^+\pi^-$\\
+\textbf{Regeneration background: } regeneration $K_L \rightarrow K_S$ in material\\
+\textbf{Combinatoric background} Prompt kaons and pions
+\end{beamercolorbox}
+\end{frame}
+
+
+
+
+\LogoOff
+\begin{frame}[fragile]
+\frametitle{Selection - inclusive $\phi$}
+
+\begin{beamercolorbox}[rounded=true,shadow=true]{palette misc}
+\centering{Inclusive $\phi$ production}
+\begin{itemize}
+\item Stripping PhiToKSKS\_PhiToKsKsLine
+\begin{itemize}
+\item[$\pi$] 
+TRGHOSTPROB < 0.35\\
+P $>$ 2.GeV\\
+MIPCHI2DV(PRIMARY) $>$ 9.\\
+\item[$K_S$]ADMASS('KS0') < 35.MeV\\
+VFASPF(VCHI2) < 25.\\
+\item[$\phi$]LL or LD combinations $^{*)}$\\
+APT > 400 MeV\\
+VFASPF(VCHI2/VDOF) < 6\\
+MIPCHI2DV(PRIMARY) < 9\\
+M < 1100 MeV\\
+\end{itemize}
+\item $\SI{1010}{MeV}<$phi\_M$<\SI{1030}{MeV}$
+\end{itemize}
+\end{beamercolorbox}
+$^{*)}$ because of regeneration, KLOE follows the same approach
+
+
+
+\end{frame}
+\LogoOn
+
+
+
+
+\LogoOff
+\begin{frame}[fragile]
+\frametitle{Selection - $D_s \rightarrow \phi \pi$}
+\vspace*{-2mm}
+\begin{beamercolorbox}[rounded=true,shadow=true]{palette misc}
+\vspace*{-3mm}
+\begin{itemize}
+\item Selection (inspired by PhiToKSKS\_PhiToKsKsLine and other charm lines) on CHARMCOMPLETEEVENT.DST
+
+\begin{columns}
+\begin{column}{.01\textwidth}
+$\frac{}{}$
+\end{column}
+\begin{column}{.46\textwidth}
+\vspace*{-.3mm}
+\begin{itemize}
+\item[$\pi$($K_S$)]
+PT $>$ 150 MeV\\
+BPVIPCHI2() $>$ 1.0\\
+TRCHI2DOF $<$ 5\\
+TRGHOSTPROB $<$ 0.3\\
+\item[$K_S$] ADMASS('KS0') $<$ 35 MeV\\
+VFASPF(VCHI2) $<$ 2.\\
+PT $>$ 200 MeV\\
+BPVVD $>$ 10.0 mm\\
+BPVVDCHI2 $>$ 100\\
+VFASPF(VCHI2PDOF) $<$ 10\\
+BPVDIRA $>$ 0.999\\
+\end{itemize}
+
+
+\end{column}
+\begin{column}{.48\textwidth}
+\begin{itemize}
+\item[$\phi$]LL or LD combinations\\
+ADMASS('phi(1020)')$<$70 MeV\\
+VFASPF(VCHI2/VDOF) $<$ 6\\
+APT $>$ 400 MeV\\
+\item[$\pi$($D_S$)]TRGHOSTPROB $<$ 0.35\\
+P $>$ 2 GeV\\
+MIPCHI2DV(PRIMARY) $>$ 9 \\
+\item[$D_S$]ADMASS('D\_s+') $<$ 150MeV\\
+(BPVVDCHI2 $>$ 16.0) or (BPVLTIME() $>$ 0.150 ps)\\
+VFASPF(VCHI2/VDOF) $<$ 25.0\\
+\end{itemize}
+
+\end{column}
+\end{columns}
+
+\item \SI{1010}{MeV}$<$phi\_M$<$\SI{1030}{MeV} \& \SI{1955}{MeV}$<$Ds\_M$<$\SI{1985}{MeV}
+\item IPCHI2 $\geq$ 15,\small{ (possible to tighten cut if more MC statistics available)}
+\end{itemize}
+\end{beamercolorbox}
+
+
+
+
+\end{frame}
+\LogoOn
+
+
+\LogoOff
+\begin{frame}
+\frametitle{Efficiencies}
+\begin{scriptsize}
+
+\resizebox{\textwidth}{!}{
+\begin{tabular}{ccc}
+&Inclusive $\phi$ & $D_s \rightarrow \phi \pi$ \\
+\hline 
+\hline
+Cross section (\SI{14}{TeV})\\
+LHCb acceptance & \SI{ 3516 }{\micro\barn} & \SI{ 388 }{\micro\barn} \\
+\hline
+Branching fractions & 34.2 \% & 4.5  \% $\cdot$  34.2 \% \\
+\hline
+Fiducial cuts efficiency & 2.5 \% & 7.0 \%\\
+\hline
+Prob. $K_sK_s \rightarrow 4\pi$, \\
+ exactly 1 (2) decays inside bp &\multicolumn{2}{c}{$ 15.1 \% $($ 2.8 \% $)} \\
+\hline
+Prob. $K_sK_L \rightarrow 4\pi$ (CPV),\\
+exactly 1 (2) decays inside bp &\multicolumn{2}{c}{$ 3.98\cdot 10^{-7} $($ 4.99\cdot 10^{-10} $)} \\
+\hline
+Upper limit KLOE prob. $K_sK_L \rightarrow 4\pi$ (CPV \\
++ CPTV), exactly 1 (2) decays inside bp &\multicolumn{2}{c}{$  5.13\cdot 10^{-7} $($ 1.64\cdot 10^{-8} $)}\\
+\hline
+Reconstruction \& selection efficiency &  7.9 \%( 7.6 \%)  & 1.4 \%( 4.2 \%)\\
+\hline
+L0 efficiency&  16.1 \%( 18.6 \%)&  22.4 \%( 18.2 \%)\\
+HLT1 efficiency&  13.7 \%( 16.7 \%)& 45.5 \%( 25.0 \%)\\
+HLT2 efficiency&  65.6 \%( 100.0 \%)& 75.0 \%( 100.0 \%)\\
+\hline
+\hline
+Total efficiency SM background &$ 4.39\cdot 10^{-5} $($ 5.85\cdot 10^{-5} $)&$ 1.02\cdot 10^{-4} $($ 1.32\cdot 10^{-4} $)\\
+Expected events SM background / fb$^{-1}$ &$21 $($ 3.51\cdot 10^{-2} $)&$ 2.43\cdot 10^{-1} $($ 3.94\cdot 10^{-4} $)\\
+Upper limit for signal (KLOE) &$ 27 $($ 1.15 $)&$ 3.13\cdot 10^{-1} $($ 1.29\cdot 10^{-2} $)\\
+Background (data 2012) / fb$^{-1}$ & 163110 ( 29120 ) &  1170 ( 6100 )\\
+\end{tabular}
+}
+
+\end{scriptsize}
+
+
+
+\vspace*{2cm}
+
+Background retention (estimated from minimum bias MC) $\sim 10^{-7}$
+\end{frame}
+\LogoOn
+
+
+
+
+
+
+\LogoOff
+\begin{frame}
+\frametitle{Mass plots - inclusive $\phi$}
+\begin{center}
+\includegraphics[width = .90\textwidth]{incl_phi_M.pdf}
+\end{center}
+
+\end{frame}
+\LogoOn
+
+\LogoOff
+\begin{frame}
+\frametitle{Mass plots - $D_S\rightarrow \phi\pi$}
+\begin{center}
+\includegraphics[width = .90\textwidth]{Ds_M.pdf}
+\end{center}
+\end{frame}
+\LogoOn
+
+\LogoOff
+\begin{frame}
+\frametitle{Mass plots - $D_S\rightarrow \phi\pi$}
+\begin{center}
+\includegraphics[width = .90\textwidth]{Ds_phi_M.pdf}
+\end{center}
+
+\end{frame}
+\LogoOn
+
+
+
+\LogoOff
+\begin{frame}
+\frametitle{Comparisons }
+\vspace*{-.4cm}
+Good agreement with other studies!
+\begin{beamercolorbox}[rounded=true,shadow=true]{palette misc}
+\begin{center}
+$D_0 \rightarrow K_sK_s$ by Markward Britsch\\
+\vspace*{.5cm}
+\scriptsize
+\begin{tabular}{c|c|c}
+ & M. Britsch & inclusive/$D_s$ approach \\ 
+\hline 
+Reconstruction \& selection  & 0.2-0.5\% & 0.2\%/ 0.1\% \\ 
+\hline 
+Efficiency L0+Hlt1 & 3\% & 10\% / 4\%\\ 
+\hline 
+Efficiency L0+Hlt1+Hlt2 & 1\% & 7\% / 4\%\\ 
+\end{tabular} 
+
+\end{center}
+
+
+\end{beamercolorbox}
+\begin{beamercolorbox}[rounded=true,shadow=true]{palette misc}
+\begin{center}
+$X\rightarrow K_sK_s$ by Thomas Ruf\\
+\vspace*{.5cm}
+\scriptsize
+\begin{tabular}{c|c|c}
+ & T. Ruf & inclusive/$D_s$ approach \\ 
+\hline 
+Acceptance \& reconstruction & 10\% &  \\ 
+Reconstruction \& selection  & & 0.2\%/ 0.1\% \\ 
+\hline 
+Probability of at least 1 $K_s$ decaying in beampipe & 50\% & 44\% / 42\%\\ 
+\end{tabular} 
+\end{center}
+
+
+\end{beamercolorbox}
+
+\end{frame}
+\LogoOn
+
+\LogoOff
+\begin{frame}[fragile]
+\frametitle{Backgrounds}
+Estimates from minimum bias MC (42 M events). Number in brackets is the the number of background events with physical $K_s$
+\begin{center}
+\begin{tabular}{c|c|c}
+Background category & inclusive $\phi$ & $D_s \rightarrow \phi \pi$ \\ 
+\hline 
+light flavour & 17(17) & 0 \\ 
+$b\overline{b}$ & 1(1) & 0 \\ 
+different PV & 3(2) & 0 \\ 
+physical bkg, partl. reconstructed & 1(1) & 1(1) \\ 
+ghosts & 0 & 1(0) \\ 
+\hline 
+total & 21(20) & 2(1) \\  
+\end{tabular} 
+\end{center}
+Remaining background for inclusive $\phi$ mostly irreducible
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Time Resolution}
+\vspace*{-4mm}
+\begin{center}
+\includegraphics[width=.85\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/timeResolution.pdf}
+\end{center}
+\vspace*{-4mm}
+Resolution of a few ps; the core that has a resolution of less than 1 ps
+\end{frame}
+\LogoOn
+
+
+
+
+\LogoOff
+\begin{frame}[fragile]
+\frametitle{Summary}
+
+\begin{beamercolorbox}[rounded=true,shadow=true]{palette misc}
+
+\begin{itemize}
+\item Selection for $D_S \rightarrow \phi \pi$ was implemented
+\item Compared the inclusive and $D_S$ strategies
+\item For both approaches, the background dominates
+\item In 2012 data, there is no $\phi$ peak visible
+\item The time resolution is about $\sim$ 1 ns
+\end{itemize}
+\end{beamercolorbox}
+
+
+%\pause
+%\vspace{.8cm}
+%\hspace{1cm}\huge\color{tugreen}{Thank You :)}
+\end{frame}
+% \LogoOn
+
+
+
+
+
+%\section{Backup}
+%\begin{frame}
+%\hspace{0.43\columnwidth}Backup
+%\end{frame}
+%
+
+
+
+
+\end{document}
