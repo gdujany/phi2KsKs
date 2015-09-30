@@ -10,9 +10,9 @@ gROOT.SetMacroPath("~/phi2KsKs/phi2KsKs/preliminaryStudies/");
 
 
 from Style import rootStyle, printLHCb
-rootStyle(False)
+rootStyle(True)
 
-for track in ["DD","LL","DD-DTF", "LL-DTF","DeltaTauLL","DeltaTauLD", "DeltaTauLL-DTF"]:
+for track in ["DD"]:#["DD","LL","DD-DTF", "LL-DTF","DeltaTauLL","DeltaTauLD", "DeltaTauLL-DTF"]:
 	f = r.TFile.Open("/afs/cern.ch/work/s/sbartkow/files/Ds_Phi2KsKs_Ds.root", "read")
 	t = f.Get("TuplePhi2KsKs/DecayTree")
 	gStyle.SetOptFit(111)
@@ -190,7 +190,7 @@ dictionary = {
 }
 f = r.TFile.Open("/afs/cern.ch/work/s/sbartkow/files/Ds_Phi2KsKs_Ds.root", "read")
 t = f.Get("TuplePhi2KsKs/DecayTree")
-for track in ["LL","DD","all","DD-DTF", "LL-DTF","all-DTF"]:#
+for track in ["LL","DD","all","DD-DTF", "LL-DTF","all-DTF"]:
 	gStyle.SetOptFit(111)
 	gStyle.SetOptTitle(1)
 	gStyle.SetOptStat(0)
@@ -273,23 +273,24 @@ for track in ["LL","DD","all","DD-DTF", "LL-DTF","all-DTF"]:#
 	del histo
 
 h_c = TH2D("h_c", track, 1, -20,20,1,-20,20)
+h_c.GetYaxis().SetTitleOffset(1.5)
+h_c.GetXaxis().SetTitleOffset(1.1)
 h_c.GetXaxis().SetTitle("t_{1}(reconstructed)-t_{1}(true) [ps]")
 h_c.GetYaxis().SetTitle("t_{2}(reconstructed)-t_{2}(true) [ps]")
-h_c.GetYaxis().SetTitleOffset(1.5)
 canvas = r.TCanvas("canvas","Canvas Title",5)
 #h_c.SetTitle("DTF")
 h_c.SetTitle("D_{s}^{#pm} #rightarrow #phi #pi^{#pm}")
 h_c.Draw("p");
-t.Draw("(phi_DTF_CTAU_Ks2_PV/299.792458-Ks2_TRUETAU)*1000:(phi_DTF_CTAU_Ks1_PV/299.792458-Ks1_TRUETAU)*1000","phi_DTF_CTAU_Ks1_PV >= 0 && phi_DTF_CTAU_Ks2_PV >= 0 && Ds_DTF_CHI2_PV >0 && phi_BKGCAT==0","same")
-canvas.Print("time_res_Ds/DTF_2D.pdf")
+t.Draw("(Ks2_TAU-Ks2_TRUETAU)*1000:(Ks1_TAU-Ks1_TRUETAU)*1000","phi_BKGCAT==0", "same")
+printLHCb(x=0.35)
+canvas.Print("time_res_Ds/UReco_2D.pdf")
 del canvas
 canvas = r.TCanvas("canvas","Canvas Title",5)
 # h_c.SetTitle("Usual Reconstruction")
 h_c.SetTitle("D_{s}^{#pm} #rightarrow #phi #pi^{#pm}")
 h_c.SetTitleSize(0.3)
 h_c.Draw("p")
-t.Draw("(Ks2_TAU-Ks2_TRUETAU)*1000:(Ks1_TAU-Ks1_TRUETAU)*1000","phi_BKGCAT==0", "same")
-printLHCb(x=0.35)
-canvas.Print("time_res_Ds/UReco_2D.pdf")
+t.Draw("(phi_DTF_CTAU_Ks2_PV/299.792458-Ks2_TRUETAU)*1000:(phi_DTF_CTAU_Ks1_PV/299.792458-Ks1_TRUETAU)*1000","phi_DTF_CTAU_Ks1_PV >= 0 && phi_DTF_CTAU_Ks2_PV >= 0 && Ds_DTF_CHI2_PV >0 && phi_BKGCAT==0","same")
+canvas.Print("time_res_Ds/DTF_2D.pdf")
 
 

@@ -63,5 +63,6 @@ function.SetParLimits(1,-70,-65)
 function.SetParameters(2,1.21951002)
 limits.Fit(function,"I0","",70.,100.);
 function.Draw("same")
+printLHCb()
 # function.Draw("same")
 canvas.Print("limits.pdf")

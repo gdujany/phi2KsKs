@@ -5,11 +5,8 @@
 
 To determine the number of events expected both for signal and background processes, Monte Carlo samples of prompt $\phi$ and $D_s^\pm \rightarrow \phi \pi^\pm$ have been used. These Monte Carlo files contain $1\cdot10^4$ events each. 
 
-For the selection the stripping line \verb!PhiToKSKS! has been used. The version used in this study is not the final one. It can be found at \url{https://github.com/gdujany/phi2KsKs/blob/master/StrippingPhiToKSKS.py}. 
 
-A summary of the cuts in the stripping line are given in table \ref{TAB:Stripping}.
 \begin{center}
-
 \resizebox{\textwidth}{!}{
 \begin{tabular}{c|cc}
  & Prompt $\phi$ & $D_s^\pm \rightarrow \phi\pi^\pm$ \\ 
@@ -56,26 +53,32 @@ Post-stripping cuts & $\SI{1010}{MeV}<$phi\_M$<\SI{1030}{MeV}$ &$\SI{1010}{MeV}<
 \end{tabular} }
 \captionof{table}{Summary of all cuts done in the stripping line and in post-stripping selection, both for prompt $\phi$ and $D_s^\pm\rightarrow\phi\pi^\pm$.}\label{TAB:Stripping}
 \end{center}
-The mass windows used for all following studies are $\SI{1010}{MeV} < m(\phi) < \SI{1030}{MeV}$ and $\SI{1955}{MeV} < m(D_s^\pm) < \SI{1985}{MeV}$. In order to reject prompt $\phi$, in the $D_s^\pm \rightarrow \phi \pi^\pm$ selection the cut $\chi^2 \geq 15$ on the $\chi^2$ of a fit matching the $\phi$ origin vertex to the primary vertex was added. 
+
+For the selection the stripping line \verb!PhiToKSKS! has been used. The version used in this study is not the final one. It can be found at \url{https://github.com/gdujany/phi2KsKs/blob/master/StrippingPhiToKSKS.py}. A summary of the cuts in the stripping line are given in table \ref{TAB:Stripping}.
+
+
+
 
 
 \begin{center}
-\includegraphics[height = .49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/m_phi_incl.pdf}
+\includegraphics[height = .49\textwidth]{figs/m_phi_incl.pdf}
 \captionof{figure}{Invariant mass of $\phi$ after applying the selection. The Monte Carlo shows the spectrum for $\phi\rightarrow K_SK_S\rightarrow \pi^+\pi^-\pi^+\pi^-$ whereas the 2012 data contains mostly background events.}\label{FIG:IM1}
 \end{center}
 
 \begin{center}
-\includegraphics[width = .49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/m_Ds_Ds.pdf}
-\includegraphics[width = .49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/m_phi_Ds.pdf}
+\includegraphics[width = .49\textwidth]{figs/m_Ds_Ds.pdf}
+\includegraphics[width = .49\textwidth]{figs/m_phi_Ds.pdf}
 \captionof{figure}{Invariant mass of $D_s$ and $\phi$ after applying the selection. The Monte Carlo shows the spectra for $D_s^\pm \rightarrow \phi\pi^\pm\rightarrow K_SK_S\rightarrow \pi^+\pi^-\pi^+\pi^-\pi^\pm$ whereas the 2012 data contains mostly background events.}\label{FIG:IM2}
 \end{center}
 
+The mass windows used for all following studies are $\SI{1010}{MeV} < m(\phi) < \SI{1030}{MeV}$ and $\SI{1955}{MeV} < m(D_s^\pm) < \SI{1985}{MeV}$. In order to reject prompt $\phi$, in the $D_s^\pm \rightarrow \phi \pi^\pm$ selection the cut $\chi^2 \geq 15$ on the $\chi^2$ of a fit matching the $\phi$ origin vertex to the primary vertex was added. 
 
-Additional to the signal Monte Carlo samples, the 2012 data set was processed with the selection. For the prompt $\phi$ selection, the \verb!CHARM.mDST! container was used, as was the \verb!CHARMCOMPLETEEVENT.DST! container for the $D_s^\pm \rightarrow \phi \pi^\pm$ selection (both are \verb!Reco14!). The resulting spectra of the invariant masses of $\phi$ and $D_s^\pm$ normalized to unit area can be found in figures \ref{FIG:IM1} and \ref{FIG:IM2}.
+
+The 2012 data set was processed with the selection as well. For the prompt $\phi$ selection, the \verb!CHARM.mDST! container was used, as was the \verb!CHARMCOMPLETEEVENT.DST! container for the $D_s^\pm \rightarrow \phi \pi^\pm$ selection (both are \verb!Reco14!). The resulting spectra of the invariant masses of $\phi$ and $D_s^\pm$ normalized to unit area can be found in figures \ref{FIG:IM1} and \ref{FIG:IM2}.
 
 
 \subsection{Efficiencies}
-From the Monte Carlo, reconstruction and trigger efficiencies have been determined. The probabilities of the kaon decays have been determined using the decay intensities in equation \eqref{EQ:DI1} and \eqref{EQ:DI2}, with 
+The reconstruction and trigger efficiencies have been determined from the Monte Carlo samples. The probabilities of the kaon decays have been determined using the decay intensities in equation \eqref{EQ:DI1} and \eqref{EQ:DI2}, with 
 $\zeta_{SL}$ set to 0.098, the 95\% C.L. limit set by KLOE. It is estimated that to decay, on 
 average, inside the beampipe, the decay time of the kaons has to be less than 25\,ps, and to be reconstructed at all, the decay time has to be less than 200\,ps. The estimate for the background yield is the number of events in the 2012 data after applying the selection. All resulting values can be found in table \ref{TAB:Efficiencies}.
 
@@ -115,5 +118,5 @@ Combinatoric background (data 2012) / fb$^{-1}$ & 163110 ( 29120 ) &  450 ( 2030
 }
 \captionof{table}{Cross sections, branching fractions, efficiencies and resulting event yields for signal, standard model background, and combinatoric background. If two numbers are given, the one in brackets assumes two kaons decaying inside the beampipe, whereas for the other it is required that exactly one of the two kaons decays inside the beampipe.}\label{TAB:Efficiencies}
 \end{center}
-
+\newpage
 From the event yield one can conclude that the signal to background ratio is in the same order of magnitude for both approaches and not much is gained from using the $D_s^\pm \rightarrow \phi \pi^\pm$ approach.

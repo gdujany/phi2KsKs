@@ -44,29 +44,27 @@ N(\delta t) = \frac{a}{(\delta t- \mu)^2 - \Gamma^2/4}, \qquad \delta t = t(\tex
 as shown in figure \ref{FIG:timeres-LL-DTF}. For this specific fit, the centre was fixed to $\mu =0$.
 
 \begin{center}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_incl/LL-DTF.pdf}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_Ds/LL-DTF.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_incl/LL-DTF.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_Ds/LL-DTF.pdf}
 \captionof{figure}{Residual of $t$ for LL kaons reconstructed via DecayTreeFitter plotted against the true value of $t$. }\label{FIG:LL-DTF}
 
 
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_incl/timeResolution-LL-DTF.pdf}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_Ds/timeResolution-LL-DTF.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_incl/timeResolution-LL-DTF.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_Ds/timeResolution-LL-DTF.pdf}
 \captionof{figure}{Resolution of LL kaon decay times $t$ reconstructed via the DecayTreeFitter. }\label{FIG:timeres-LL-DTF}
 
+
+\includegraphics[width=.49\textwidth]{figs/time_res_incl/DD-DTF.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_Ds/DD-DTF.pdf}
+\captionof{figure}{Residual of $t$ for DD kaons reconstructed via DecayTreeFitter plotted against the true value of $t$. }\label{FIG:DD-DTF}
+
+\includegraphics[width=.49\textwidth]{figs/time_res_incl/DD-DTF-prof.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_Ds/DD-DTF-prof.pdf}
+\captionof{figure}{Average residual of $t$ for DD kaons reconstructed via DecayTreeFitter plotted against the true value of $t$. }\label{FIG:DD-DTF-prof}
 \end{center}
 
 
 For DD kaons, sensitivity on the decay times is not given because the DecayTreeFitter sometimes reconstructs the decay times of the kaons as close to zero, maybe due to a lack of information available, which can be seen in figure \ref{FIG:DD-DTF}. This results in an underestimation of the decay times as shown in figure \ref{FIG:DD-DTF-prof}.
-
-\begin{center}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_incl/DD-DTF.pdf}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_Ds/DD-DTF.pdf}
-\captionof{figure}{Residual of $t$ for DD kaons reconstructed via DecayTreeFitter plotted against the true value of $t$. }\label{FIG:DD-DTF}
-
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_incl/DD-DTF-prof.pdf}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_Ds/DD-DTF-prof.pdf}
-\captionof{figure}{Average residual of $t$ for DD kaons reconstructed via DecayTreeFitter plotted against the true value of $t$. }\label{FIG:DD-DTF-prof}
-\end{center}
 Therefore it is not advised to use the DecayTreeFitter in the context of decay time reconstruction with downstream tracks.
 
 Since for probing the CPT invariance of the system, the observable $\Delta t = |t_1 - t_2|$ is used, its resolution for LL kaons has been studied as well, as it is displayed in figure \ref{FIG:timres-LL-DTF-prof}. To do this, the residual $\delta(\Delta t)$ has been fitted to the Breit Wigner distribution 
@@ -75,8 +73,8 @@ N(\delta(\Delta t)) = \frac{a}{(\delta(\Delta t)- \mu)^2 - \Gamma^2/4}. \label{E
 \end{equation}
 All resolution widths for LL kaons are given in table \ref{TAB:DTF}.
 \begin{center}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_incl/timeResolution-DeltaTauLL-DTF.pdf}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_Ds/timeResolution-DeltaTauLL-DTF.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_incl/timeResolution-DeltaTauLL-DTF.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_Ds/timeResolution-DeltaTauLL-DTF.pdf}
 \captionof{figure}{Resolution of $\Delta t$ reconstructed via DecayTreeFitter LL kaons. }\label{FIG:timres-LL-DTF-prof}
 \end{center}
 
@@ -94,19 +92,19 @@ $\Delta t$ & $1.99 \pm 0.07$ & $1.79 \pm 0.04$ \\
 The TupleToolPropertime does not explicitly exclude negative decay times. Therefore, the difference between reconstructed and true decay time relative to the true decay time is symmetric as seen in figures \ref{FIG:LL} and \ref{FIG:DD}. The average residual of the decay time in figure \ref{FIG:all-prof} confirms this.
 
 \begin{center}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_incl/LL.pdf}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_Ds/LL.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_incl/LL.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_Ds/LL.pdf}
 \captionof{figure}{Residual of $t$ for LL kaons reconstructed using the TupleToolPropertime plotted against the true value of $t$. }\label{FIG:LL}
 
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_incl/DD.pdf}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_Ds/DD.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_incl/DD.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_Ds/DD.pdf}
 \captionof{figure}{Residual of $t$ for DD kaons reconstructed using TupleToolPropertime plotted against the true value of $t$.}\label{FIG:DD}
 \end{center}
 
 
 \begin{center}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_incl/all-prof.pdf}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_Ds/LL-prof.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_incl/all-prof.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_Ds/LL-prof.pdf}
 \captionof{figure}{Average of $t$ reconstructed using TupleToolPropertime for all kaons plotted against the true value of $t$.}\label{FIG:all-prof}
 \end{center}
 The decay time resolution has been fitted to the Breit Wigner distribution in equation \eqref{EQ:BWt} as shown in figures \ref{FIG:LL-res} and \ref{FIG:DD-res} with the following results for the width:
@@ -122,13 +120,13 @@ DD& $2.54 \pm 0.07$ & $10.64 \pm 0.14$ \\
 \end{center}
 
 \begin{center}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_incl/timeResolution-LL.pdf}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_Ds/timeResolution-LL.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_incl/timeResolution-LL.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_Ds/timeResolution-LL.pdf}
 \captionof{figure}{Resolution of LL kaon decay times $t$ reconstructed via the DecayTreeFitter. }\label{FIG:LL-res}
 
 
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_incl/timeResolution-DD.pdf}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_Ds/timeResolution-DD.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_incl/timeResolution-DD.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_Ds/timeResolution-DD.pdf}
 \captionof{figure}{Resolution of DD kaon decay times $t$ reconstructed via the DecayTreeFitter.  }\label{FIG:DD-res}
 \end{center}
 
@@ -148,22 +146,22 @@ LL and DD & $2.47 \pm 0.06$ & $4.11 \pm 0.05$ \\
 
 
 \begin{center}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_incl/timeResolution-DeltaTauLL.pdf}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_Ds/timeResolution-DeltaTauLL.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_incl/timeResolution-DeltaTauLL.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_Ds/timeResolution-DeltaTauLL.pdf}
 \captionof{figure}{Resolution of $\Delta t$ for LL kaons reconstructed using the TupleToolPropertime. }\label{FIG:LL-diff}
 \end{center}
 
 
 \begin{center}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_incl/timeResolution-DeltaTauLD.pdf}
-\includegraphics[width=.49\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_Ds/timeResolution-DeltaTauLD.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_incl/timeResolution-DeltaTauLD.pdf}
+\includegraphics[width=.49\textwidth]{figs/time_res_Ds/timeResolution-DeltaTauLD.pdf}
 \captionof{figure}{Resolution of $\Delta t$ for LL and DD kaons reconstructed using the TupleToolPropertime. }\label{FIG:LD-diff}
 \end{center}
 
 For the $D_s^\pm \rightarrow \phi \pi^\pm$ case, the width of the resolution of the decay time difference is smaller than for the actual decay times since the $\phi$ lifetime is negligible and therefore the residuals of the kaon decay times are correlated through the common ``vertex'' $D_s^\pm \rightarrow K^0 \overline{K}^0 \pi^\pm$ as can be seen in figure \ref{FIG:correlation}.
 
 \begin{center}
-\includegraphics[width=.7\textwidth]{/home/soonja/lxplus/phi2KsKs/phi2KsKs/preliminaryStudies/time_res_Ds/UReco_2D.pdf}
+\includegraphics[width=.7\textwidth]{figs/time_res_Ds/UReco_2D.pdf}
 \captionof{figure}{Correlation between the decay time residuals of both neutral kaons due to the common origin vertex.}\label{FIG:correlation}
 \end{center}
 
